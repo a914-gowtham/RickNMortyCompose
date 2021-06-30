@@ -1,4 +1,4 @@
-package com.compose.template
+package com.gowtham.ricknmorty
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

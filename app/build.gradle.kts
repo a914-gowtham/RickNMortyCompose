@@ -2,6 +2,7 @@ plugins {
     id(Plugins.androidApplication)
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinKapt)
+    id("com.apollographql.apollo").version("2.5.9")
     id(Plugins.hilt)
 }
 
@@ -10,7 +11,7 @@ android {
     buildToolsVersion = Config.buildToolsVersion
 
     defaultConfig {
-        applicationId = Config.applicationId
+        applicationId = "com.gowtham.ricknmorty"
         minSdk = Config.minSdkVersion
         targetSdk = Config.targetSdkVersion
         versionCode = Config.versionCode
@@ -58,25 +59,27 @@ android {
 
 dependencies {
 
-    /*android*/
+    // Android
     implementation(Dependencies.Android.ktx)
     implementation(Dependencies.Android.appCompat)
     implementation(Dependencies.Android.material)
 
-    /*compose*/
+    // Compose
     implementation(Dependencies.Compose.ui)
     implementation(Dependencies.Compose.material)
     implementation(Dependencies.Compose.tooling)
     implementation(Dependencies.Compose.activity)
 
-    /*lifecycle*/
+    // Lifecycle
     implementation(Dependencies.Lifecycle.runtime)
 
-    /*hilt*/
+    // Hilt
     implementation(Dependencies.Hilt.dependency)
     implementation(Dependencies.Hilt.compiler)
 
-    /*Testing*/
+    implementation("com.apollographql.apollo:apollo-runtime:2.5.9")
+
+    // Testing
     testImplementation(Dependencies.Testing.junit)
     androidTestImplementation(Dependencies.Testing.junitAndroid)
     androidTestImplementation(Dependencies.Testing.espresso)

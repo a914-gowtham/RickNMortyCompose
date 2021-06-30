@@ -6,6 +6,6 @@ dependencyResolutionManagement {
         jcenter() // Warning: this repository is going to shut down soon
     }
 }
-rootProject.name = "Compose-Template"
+rootProject.name = "RickNMortyCompose"
 include(":app")
  

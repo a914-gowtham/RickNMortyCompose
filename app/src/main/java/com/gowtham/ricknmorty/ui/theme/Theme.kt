@@ -1,4 +1,4 @@
-package com.compose.template.ui.theme
+package com.gowtham.ricknmorty.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

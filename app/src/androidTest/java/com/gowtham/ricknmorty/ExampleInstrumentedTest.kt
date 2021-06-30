@@ -1,4 +1,4 @@
-package com.compose.template
+package com.gowtham.ricknmorty
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
