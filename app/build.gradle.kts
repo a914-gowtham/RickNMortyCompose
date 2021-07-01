@@ -64,6 +64,10 @@ dependencies {
     implementation(Dependencies.Android.appCompat)
     implementation(Dependencies.Android.material)
 
+    // Navigation
+    implementation(Dependencies.Navigation.dependency)
+    implementation(Dependencies.Navigation.hilt)
+
     // Compose
     implementation(Dependencies.Compose.ui)
     implementation(Dependencies.Compose.material)
@@ -75,7 +79,7 @@ dependencies {
 
     // Hilt
     implementation(Dependencies.Hilt.dependency)
-    implementation(Dependencies.Hilt.compiler)
+    kapt(Dependencies.Hilt.compiler)
 
     implementation("com.apollographql.apollo:apollo-runtime:2.5.9")
 

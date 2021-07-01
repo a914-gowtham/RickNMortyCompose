@@ -5,7 +5,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 plugins {
     id(Plugins.BenManes.plugin) version Plugins.BenManes.version
     id(Plugins.Spotless.plugin) version (Plugins.Spotless.version)
-    id(Plugins.Detekts.detekt) version Plugins.Detekts.version
+    id(Plugins.Detekt.plugin) version Plugins.Detekt.version
 }
 
 buildscript {

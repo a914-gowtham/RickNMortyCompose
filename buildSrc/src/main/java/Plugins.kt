@@ -9,8 +9,8 @@ object Plugins {
         const val version = "5.9.0"
     }
 
-    object Detekts {
-        const val detekt = "io.gitlab.arturbosch.detekt"
+    object Detekt {
+        const val plugin = "io.gitlab.arturbosch.detekt"
         const val version = "1.17.1"
     }
 

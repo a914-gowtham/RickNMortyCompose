@@ -45,6 +45,7 @@ object Dependencies {
         const val activity = "androidx.activity:activity-compose:1.3.0-beta02"
         const val lifecycle = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha04"
         const val livedata = "androidx.compose.runtime:runtime-livedata:$version"
+        const val iconsExtended = "androidx.compose.material:material-icons-extended:$version"
     }
 
     object Accompanist {
@@ -59,7 +60,7 @@ object Dependencies {
     }
 
     object Navigation {
-        const val compose = "androidx.navigation:navigation-compose:2.4.0-alpha01"
+        const val dependency = "androidx.navigation:navigation-compose:2.4.0-alpha01"
         const val hilt = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha02"
     }
 
