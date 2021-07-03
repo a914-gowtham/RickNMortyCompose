@@ -2,7 +2,7 @@ plugins {
     id(Plugins.androidApplication)
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinKapt)
-    id("com.apollographql.apollo").version("2.5.9")
+    id(Plugins.Apollo.plugin).version(Plugins.Apollo.version)
     id(Plugins.hilt)
 }
 
@@ -11,7 +11,7 @@ android {
     buildToolsVersion = Config.buildToolsVersion
 
     defaultConfig {
-        applicationId = "com.gowtham.ricknmorty"
+        applicationId = Config.applicationId
         minSdk = Config.minSdkVersion
         targetSdk = Config.targetSdkVersion
         versionCode = Config.versionCode
@@ -73,6 +73,7 @@ dependencies {
     implementation(Dependencies.Compose.material)
     implementation(Dependencies.Compose.tooling)
     implementation(Dependencies.Compose.activity)
+    implementation(Dependencies.Compose.paging)
 
     // Lifecycle
     implementation(Dependencies.Lifecycle.runtime)
@@ -81,11 +82,24 @@ dependencies {
     implementation(Dependencies.Hilt.dependency)
     kapt(Dependencies.Hilt.compiler)
 
-    implementation("com.apollographql.apollo:apollo-runtime:2.5.9")
+    // Apollo graphql
+    implementation(Dependencies.Apollo.runtime)
+    implementation(Dependencies.Apollo.coroutine)
+    implementation(Dependencies.OkHttp.bom)
+    implementation(Dependencies.OkHttp.dependency)
+    implementation(Dependencies.OkHttp.loggingInterceptor)
+
+    // Accompanist
+    implementation(Dependencies.Accompanist.coil)
 
     // Testing
     testImplementation(Dependencies.Testing.junit)
     androidTestImplementation(Dependencies.Testing.junitAndroid)
     androidTestImplementation(Dependencies.Testing.espresso)
     androidTestImplementation(Dependencies.Testing.junitCompose)
+}
+
+apollo {
+    // instruct the compiler to generate Kotlin models
+    generateKotlinModels.set(true)
 }

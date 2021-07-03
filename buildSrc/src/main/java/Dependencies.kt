@@ -3,7 +3,7 @@ object Dependencies {
     const val timber = "com.jakewharton.timber:timber:4.7.1"
 
     object OkHttp {
-        const val bom = "com.squareup.okhttp3:okhttp-bom:4.9.0"
+        const val bom = "com.squareup.okhttp3:okhttp-bom:4.9.1"
         const val dependency = "com.squareup.okhttp3:okhttp"
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor"
         const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
@@ -46,10 +46,17 @@ object Dependencies {
         const val lifecycle = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha04"
         const val livedata = "androidx.compose.runtime:runtime-livedata:$version"
         const val iconsExtended = "androidx.compose.material:material-icons-extended:$version"
+        const val paging = "androidx.paging:paging-compose:1.0.0-alpha11"
+    }
+
+    object Apollo {
+        const val version = "2.5.9"
+        const val runtime = "com.apollographql.apollo:apollo-runtime:$version"
+        const val coroutine = "com.apollographql.apollo:apollo-coroutines-support:$version"
     }
 
     object Accompanist {
-        const val version = "0.11.0"
+        private const val version = "0.13.0"
         const val coil = "com.google.accompanist:accompanist-coil:$version"
         const val windowInsets = "com.google.accompanist:accompanist-insets:$version"
         const val placeholder = "com.google.accompanist:accompanist-placeholder$version"
@@ -68,7 +75,7 @@ object Dependencies {
         const val version = "2.37"
         const val plugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val dependency = "com.google.dagger:hilt-android:$version"
-        const val compiler = "com.google.dagger:hilt-compiler:$version"
+        const val compiler = "com.google.dagger:hilt-android-compiler:$version"
     }
 
     object Testing {

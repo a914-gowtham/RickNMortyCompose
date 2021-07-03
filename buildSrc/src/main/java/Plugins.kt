@@ -18,4 +18,9 @@ object Plugins {
         const val plugin = "com.github.ben-manes.versions"
         const val version = "0.39.0"
     }
+
+    object Apollo {
+        const val plugin = "com.apollographql.apollo"
+        const val version = "2.5.9"
+    }
 }
