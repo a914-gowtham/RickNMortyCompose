@@ -1,4 +1,4 @@
-package com.gowtham.ricknmorty.ui.theme
+package com.gowtham.ricknmorty.compose.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

@@ -9,8 +9,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.gowtham.ricknmorty.ui.characters.CharactersScreen
-import com.gowtham.ricknmorty.ui.theme.TAppTheme
+import com.gowtham.ricknmorty.compose.episodes.EpisodesScreen
+import com.gowtham.ricknmorty.compose.theme.TAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
             TAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    CharactersScreen(viewModel)
+                    EpisodesScreen(viewModel)
                 }
             }
         }
