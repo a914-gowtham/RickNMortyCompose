@@ -65,7 +65,7 @@ fun EpisodeRow(episode: EpisodeDetail) {
                 style = MaterialTheme.typography.subtitle1
             )
         }
-        Divider(modifier = Modifier.padding(horizontal = 12.dp))
+        Divider(modifier = Modifier.padding(horizontal = 6.dp))
     }
 }
 

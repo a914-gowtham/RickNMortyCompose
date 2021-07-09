@@ -83,5 +83,5 @@ fun CharactersListRowView(character: CharacterDetail) {
             }
         }
     }
-    Divider(modifier = Modifier.padding(horizontal = 12.dp))
+    Divider(modifier = Modifier.padding(horizontal = 6.dp))
 }

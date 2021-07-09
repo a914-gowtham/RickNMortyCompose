@@ -7,8 +7,10 @@ import androidx.paging.PagingData
 import com.apollographql.apollo.ApolloClient
 import com.gowtham.ricknmorty.compose.characters.CharactersDataSource
 import com.gowtham.ricknmorty.compose.episodes.EpisodesDataSource
+import com.gowtham.ricknmorty.compose.locations.LocationsDataSource
 import fragment.CharacterDetail
 import fragment.EpisodeDetail
+import fragment.LocationDetail
 import kotlinx.coroutines.flow.Flow
 
 class MainRepository(
@@ -26,6 +28,10 @@ class MainRepository(
 
     val episodes: Flow<PagingData<EpisodeDetail>> = Pager(PagingConfig(pageSize = 20)) {
         EpisodesDataSource(context = appContext, apollo = apolloClient)
+    }.flow
+
+    val locations: Flow<PagingData<LocationDetail>> = Pager(PagingConfig(pageSize = 20)) {
+        LocationsDataSource(context = appContext,apollo = apolloClient)
     }.flow
 
     /*val characters: Flow<PagingData<CharacterDetail>> = Pager(PagingConfig(pageSize = 20)) {

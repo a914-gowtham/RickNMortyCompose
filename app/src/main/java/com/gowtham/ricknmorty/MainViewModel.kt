@@ -24,4 +24,7 @@ class MainViewModel @Inject constructor(
     val characters = mainRepository.characters.cachedIn(viewModelScope)
 
     val episodes = mainRepository.episodes.cachedIn(viewModelScope)
+
+    val locations = mainRepository.locations.cachedIn(viewModelScope)
+
 }

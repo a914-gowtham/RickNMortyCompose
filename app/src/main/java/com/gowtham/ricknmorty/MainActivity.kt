@@ -9,7 +9,9 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.gowtham.ricknmorty.compose.characters.CharactersScreen
 import com.gowtham.ricknmorty.compose.episodes.EpisodesScreen
+import com.gowtham.ricknmorty.compose.locations.LocationsScreen
 import com.gowtham.ricknmorty.compose.theme.TAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
