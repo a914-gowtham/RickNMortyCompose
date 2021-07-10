@@ -9,6 +9,7 @@ import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await
 import com.gowtham.ricknmorty.utils.Utils
 import fragment.CharacterDetail
+import kotlinx.coroutines.delay
 
 private const val START_OFFSET = 0
 
@@ -23,10 +24,10 @@ class CharactersDataSource(
 
         if (!Utils.isNetConnected(context))
             return LoadResult.Error(Throwable(message = "No internet connected"))
-        val charactersResponse =
-            apollo.query(GetCharactersQuery(page = Input.optional(pageNumber))).await()
-        val characterData = charactersResponse.data?.characters
         return try {
+            val charactersResponse =
+                apollo.query(GetCharactersQuery(page = Input.optional(pageNumber))).await()
+            val characterData = charactersResponse.data?.characters
             if (charactersResponse.errors != null)
                 LoadResult.Error(Throwable(message = "${charactersResponse.errors?.first()}"))
             else {

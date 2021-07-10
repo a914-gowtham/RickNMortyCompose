@@ -34,10 +34,7 @@ class MainRepository(
         LocationsDataSource(context = appContext,apollo = apolloClient)
     }.flow
 
-    /*val characters: Flow<PagingData<CharacterDetail>> = Pager(PagingConfig(pageSize = 20)) {
-        CharactersDataSource(apollo = apolloClient)
-    }.flow
-
+    /*
     suspend fun getCharacter(characterId: String): CharacterDetail? {
         val response = apolloClient.query(GetCharacterQuery(characterId)).await()
         return response.data?.character?.fragments?.characterDetail

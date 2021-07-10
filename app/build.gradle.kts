@@ -45,7 +45,6 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = Dependencies.Compose.version
-        kotlinCompilerVersion = Dependencies.Kotlin.version
     }
 
     packagingOptions {
@@ -74,6 +73,7 @@ dependencies {
     implementation(Dependencies.Compose.tooling)
     implementation(Dependencies.Compose.activity)
     implementation(Dependencies.Compose.paging)
+    implementation(Dependencies.Compose.iconsExtended)
 
     // Lifecycle
     implementation(Dependencies.Lifecycle.runtime)
