@@ -122,11 +122,14 @@ style:
   MagicNumber:
     ignoreHashCodeFunction: true
     ignorePropertyDeclaration: true
+    ignoreLocalVariableDeclaration: true
     ignoreAnnotation: true
     ignoreEnums: true
     ignoreNumbers: [ '-1', '0', '1', '2', '100', '1000', '8080' ]
   MayBeConst:
     active: true
+  ReturnCount:
+    max: 4
   NestedClassesVisibility:
     active: true
   ProtectedMemberInFinalClass:

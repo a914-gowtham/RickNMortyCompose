@@ -31,7 +31,7 @@ class MainRepository(
     }.flow
 
     val locations: Flow<PagingData<LocationDetail>> = Pager(PagingConfig(pageSize = 20)) {
-        LocationsDataSource(context = appContext,apollo = apolloClient)
+        LocationsDataSource(context = appContext, apollo = apolloClient)
     }.flow
 
     /*

@@ -21,15 +21,17 @@ class LocationsDataSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, LocationDetail> {
         val pageNumber = params.key ?: START_OFFSET
 
-        if (!Utils.isNetConnected(context))
+        if (!Utils.isNetConnected(context)) {
             return LoadResult.Error(Throwable(message = "No internet connected"))
-        val locationsResponse =
-            apollo.query(GetLocationsQuery(page = Input.optional(pageNumber))).await()
-        val locationData = locationsResponse.data?.locations
+        }
+
         return try {
-            if (locationsResponse.errors != null)
+            val locationsResponse =
+                apollo.query(GetLocationsQuery(page = Input.optional(pageNumber))).await()
+            val locationData = locationsResponse.data?.locations
+            if (locationsResponse.errors != null) {
                 LoadResult.Error(Throwable(message = "${locationsResponse.errors?.first()}"))
-            else {
+            } else {
                 val locations =
                     locationData?.results?.filterNotNull()?.map { it.fragments.locationDetail }
                 val prevKey = if (pageNumber > START_OFFSET) pageNumber - 1 else null

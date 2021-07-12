@@ -21,15 +21,17 @@ class EpisodesDataSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, EpisodeDetail> {
         val pageNumber = params.key ?: START_OFFSET
 
-        if (!Utils.isNetConnected(context))
+        if (!Utils.isNetConnected(context)) {
             return LoadResult.Error(Throwable(message = "No internet connected"))
-        val episodesResponse =
-            apollo.query(GetEpisodesQuery(page = Input.optional(pageNumber))).await()
-        val episodeData = episodesResponse.data?.episodes
+        }
+
         return try {
-            if (episodesResponse.errors != null)
+            val episodesResponse =
+                apollo.query(GetEpisodesQuery(page = Input.optional(pageNumber))).await()
+            val episodeData = episodesResponse.data?.episodes
+            if (episodesResponse.errors != null) {
                 LoadResult.Error(Throwable(message = "${episodesResponse.errors?.first()}"))
-            else {
+            } else {
                 val episodes =
                     episodeData?.results?.filterNotNull()?.map { it.fragments.episodeDetail }
                 //      val prevKey = if (pageNumber == START_OFFSET) null else pageNumber - 1
