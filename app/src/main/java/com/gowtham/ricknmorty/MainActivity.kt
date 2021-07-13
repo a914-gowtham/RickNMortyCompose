@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
+import com.apollographql.apollo.api.internal.ResponseReader
 import com.gowtham.ricknmorty.MainActivity.Companion.CHARACTER_KEY
 import com.gowtham.ricknmorty.MainActivity.Companion.EPISODE_KEY
 import com.gowtham.ricknmorty.MainActivity.Companion.LOCATION_KEY
@@ -31,6 +32,7 @@ import com.gowtham.ricknmorty.compose.theme.TAppTheme
 import com.gowtham.ricknmorty.utils.LogMessage
 import dagger.hilt.android.AndroidEntryPoint
 import fragment.CharacterDetail
+import fragment.LocationDetail
 import kotlinx.serialization.json.Json
 
 sealed class Screens(val route: String, val label: String, val icon: ImageVector? = null) {
