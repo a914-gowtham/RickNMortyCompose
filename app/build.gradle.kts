@@ -4,6 +4,7 @@ plugins {
     id(Plugins.kotlinKapt)
     id(Plugins.Apollo.plugin).version(Plugins.Apollo.version)
     id(Plugins.hilt)
+    id(Plugins.serializer)
 }
 
 android {
@@ -62,6 +63,9 @@ dependencies {
     implementation(Dependencies.Android.ktx)
     implementation(Dependencies.Android.appCompat)
     implementation(Dependencies.Android.material)
+
+    // Kotlin
+    implementation(Dependencies.Kotlin.serialization)
 
     // Navigation
     implementation(Dependencies.Navigation.dependency)

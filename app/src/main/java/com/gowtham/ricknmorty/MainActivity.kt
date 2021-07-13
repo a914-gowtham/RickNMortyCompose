@@ -1,6 +1,7 @@
 package com.gowtham.ricknmorty
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -17,10 +18,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavType
+import androidx.navigation.compose.*
 import com.gowtham.ricknmorty.MainActivity.Companion.CHARACTER_KEY
 import com.gowtham.ricknmorty.MainActivity.Companion.EPISODE_KEY
 import com.gowtham.ricknmorty.MainActivity.Companion.LOCATION_KEY
@@ -29,8 +28,10 @@ import com.gowtham.ricknmorty.compose.characters.CharactersScreen
 import com.gowtham.ricknmorty.compose.episodes.EpisodesScreen
 import com.gowtham.ricknmorty.compose.locations.LocationsScreen
 import com.gowtham.ricknmorty.compose.theme.TAppTheme
+import com.gowtham.ricknmorty.utils.LogMessage
 import dagger.hilt.android.AndroidEntryPoint
 import fragment.CharacterDetail
+import kotlinx.serialization.json.Json
 
 sealed class Screens(val route: String, val label: String, val icon: ImageVector? = null) {
     object CharactersScreen : Screens("Characters", "Characters", Icons.Default.Person)
@@ -73,10 +74,11 @@ fun RickNMortyApp(viewModel: MainViewModel) {
     NavHost(navController = navController, startDestination = Screens.CharactersScreen.route) {
         composable(Screens.CharactersScreen.route) {
             CharactersScreen(viewModel, bottomBar) { character ->
-                navController.navigate(Screens.CharacterDetailScreen.route + "/$character")
+                navController.navigate(Screens.CharacterDetailScreen.route + "/${character.id}")
             }
         }
-        composable(Screens.CharacterDetailScreen.route + "/$CHARACTER_KEY") {
+        composable(Screens.CharacterDetailScreen.route + "/{$CHARACTER_KEY}") {
+            LogMessage.v("${it.arguments?.getString(CHARACTER_KEY)}")
             CharacterDetailScreen(
                 viewModel,
                 it.arguments?.get(CHARACTER_KEY) as CharacterDetail,

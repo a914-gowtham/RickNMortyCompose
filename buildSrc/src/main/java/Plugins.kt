@@ -3,6 +3,7 @@ object Plugins {
     const val kotlinAndroid = "kotlin-android"
     const val kotlinKapt = "kotlin-kapt"
     const val hilt = "dagger.hilt.android.plugin"
+    const val serializer = "kotlinx-serialization"
 
     object Spotless {
         const val plugin = "com.diffplug.spotless"

@@ -16,7 +16,7 @@ object Dependencies {
         const val stbLib = "org.jetbrains.kotlin:kotlin-stdlib:$version"
         const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
         const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-        const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+        const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
     }
 
     object Android {
