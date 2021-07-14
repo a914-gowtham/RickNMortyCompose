@@ -8,6 +8,7 @@ object Dependencies {
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor"
         const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
         const val converter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+        const val moshi = "com.squareup.moshi:moshi:1.12.0"
     }
 
     object Kotlin {
@@ -67,8 +68,8 @@ object Dependencies {
     }
 
     object Navigation {
-        const val dependency = "androidx.navigation:navigation-compose:2.4.0-alpha01"
-        const val hilt = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha02"
+        const val dependency = "androidx.navigation:navigation-compose:2.4.0-alpha04"
+        const val hilt = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
     }
 
     object Hilt {

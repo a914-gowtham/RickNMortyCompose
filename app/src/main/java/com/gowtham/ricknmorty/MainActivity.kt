@@ -1,7 +1,6 @@
 package com.gowtham.ricknmorty
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -18,10 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.*
-import com.apollographql.apollo.api.internal.ResponseReader
-import com.gowtham.ricknmorty.MainActivity.Companion.CHARACTER_KEY
 import com.gowtham.ricknmorty.MainActivity.Companion.EPISODE_KEY
 import com.gowtham.ricknmorty.MainActivity.Companion.LOCATION_KEY
 import com.gowtham.ricknmorty.compose.character.CharacterDetailScreen
@@ -29,11 +25,7 @@ import com.gowtham.ricknmorty.compose.characters.CharactersScreen
 import com.gowtham.ricknmorty.compose.episodes.EpisodesScreen
 import com.gowtham.ricknmorty.compose.locations.LocationsScreen
 import com.gowtham.ricknmorty.compose.theme.TAppTheme
-import com.gowtham.ricknmorty.utils.LogMessage
 import dagger.hilt.android.AndroidEntryPoint
-import fragment.CharacterDetail
-import fragment.LocationDetail
-import kotlinx.serialization.json.Json
 
 sealed class Screens(val route: String, val label: String, val icon: ImageVector? = null) {
     object CharactersScreen : Screens("Characters", "Characters", Icons.Default.Person)
@@ -76,16 +68,28 @@ fun RickNMortyApp(viewModel: MainViewModel) {
     NavHost(navController = navController, startDestination = Screens.CharactersScreen.route) {
         composable(Screens.CharactersScreen.route) {
             CharactersScreen(viewModel, bottomBar) { character ->
-                navController.navigate(Screens.CharacterDetailScreen.route + "/${character.id}")
+                navController.navigate(
+                    Screens.CharacterDetailScreen.route +
+                        "?characterId=${character.id}&characterName=${character.name}"
+                )
             }
         }
-        composable(Screens.CharacterDetailScreen.route + "/{$CHARACTER_KEY}") {
-            LogMessage.v("${it.arguments?.getString(CHARACTER_KEY)}")
-            CharacterDetailScreen(
-                viewModel,
-                it.arguments?.get(CHARACTER_KEY) as CharacterDetail,
-                popBack = { navController.popBackStack() }
+        composable(
+            Screens.CharacterDetailScreen.route +
+                "?characterId={id}&characterName={name}",
+            arguments = listOf(
+                navArgument("characterId") { nullable = true },
+                navArgument("characterName") { nullable = true }
             )
+        ) {
+            val characterId = it.arguments?.getString("id").toString()
+            val characterName = it.arguments?.getString("name").toString()
+            CharacterDetailScreen(
+                characterName = characterName,
+                characterId = characterId,
+            ) {
+                navController.popBackStack()
+            }
         }
         composable(Screens.EpisodesScreen.route) {
             EpisodesScreen(viewModel, bottomBar) { episode ->

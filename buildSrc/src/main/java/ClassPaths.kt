@@ -5,5 +5,4 @@ object ClassPaths {
     const val hiltGradlePlugin =
         "com.google.dagger:hilt-android-gradle-plugin:${Dependencies.Hilt.version}"
     const val kotlinSerializer = "org.jetbrains.kotlin:kotlin-serialization:1.5.20"
-
 }

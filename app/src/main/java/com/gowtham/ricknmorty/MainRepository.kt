@@ -10,19 +10,22 @@ import com.apollographql.apollo.coroutines.await
 import com.gowtham.ricknmorty.compose.characters.CharactersDataSource
 import com.gowtham.ricknmorty.compose.episodes.EpisodesDataSource
 import com.gowtham.ricknmorty.compose.locations.LocationsDataSource
+import com.gowtham.ricknmorty.utils.Resource
+import com.gowtham.ricknmorty.utils.Utils
 import fragment.CharacterDetail
 import fragment.EpisodeDetail
 import fragment.LocationDetail
 import kotlinx.coroutines.flow.Flow
+import java.lang.Exception
 
 class MainRepository(
     private val appContext: Context,
     private val apolloClient: ApolloClient
 ) {
 
-   /* suspend fun getAllCharacters(page: Int): Response<GetCharactersQuery.Data> {
-        return apolloClient.query(GetCharactersQuery(page = Input.optional(page))).await()
-    }*/
+    /* suspend fun getAllCharacters(page: Int): Response<GetCharactersQuery.Data> {
+         return apolloClient.query(GetCharactersQuery(page = Input.optional(page))).await()
+     }*/
 
     val characters: Flow<PagingData<CharacterDetail>> = Pager(PagingConfig(pageSize = 20)) {
         CharactersDataSource(context = appContext, apollo = apolloClient)
@@ -36,9 +39,18 @@ class MainRepository(
         LocationsDataSource(context = appContext, apollo = apolloClient)
     }.flow
 
-    suspend fun getCharacter(characterId: String): CharacterDetail? {
-        val response = apolloClient.query(GetCharacterQuery(characterId)).await()
-        return response.data?.character?.fragments?.characterDetail
+    suspend fun getCharacter(characterId: String): Resource<CharacterDetail> {
+        if (!Utils.isNetConnected(appContext))
+            return Resource.Error("Internet is not connected")
+        return try {
+            val response = apolloClient.query(GetCharacterQuery(characterId)).await()
+            response.data?.character?.fragments?.characterDetail?.let {
+                Resource.Success(it)
+            } ?: Resource.Error("Character detail is unavailable")
+        } catch (ex: Exception) {
+            print(ex)
+            Resource.Error(ex.localizedMessage ?: "Unknown error occurred")
+        }
     }
 
     /*

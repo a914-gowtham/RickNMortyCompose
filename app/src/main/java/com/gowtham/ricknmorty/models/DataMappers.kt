@@ -1,9 +1,5 @@
 package com.gowtham.ricknmorty.models
 
-import GetCharactersQuery
-import fragment.CharacterDetail
-import fragment.EpisodeDetail
-import fragment.LocationDetail
 /*
 fun GetCharactersQuery.Characters.toDomain(): List<Character> {
 

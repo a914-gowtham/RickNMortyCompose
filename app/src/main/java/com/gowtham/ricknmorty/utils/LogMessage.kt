@@ -8,10 +8,10 @@ object LogMessage {
     private val logVisible = DEBUG
 
     internal fun v(msg: String) {
-        if (logVisible) Log.v("RickNMortyApp:: ",msg)
+        if (logVisible) Log.v("RickNMortyApp:: ", msg)
     }
 
     internal fun e(msg: String) {
-        if (logVisible) Log.e("RickNMortyApp:: ",msg)
+        if (logVisible) Log.e("RickNMortyApp:: ", msg)
     }
 }
