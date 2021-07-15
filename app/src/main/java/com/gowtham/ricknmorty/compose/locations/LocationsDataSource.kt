@@ -43,7 +43,7 @@ class LocationsDataSource(
                 )
             }
         } catch (e: Exception) {
-            LoadResult.Error(Throwable(message = "UnExcepted error occurred"))
+            LoadResult.Error(Throwable(message = e.localizedMessage ?: "Unexpected error occurred"))
         }
     }
 

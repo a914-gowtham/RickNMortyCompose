@@ -9,9 +9,7 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Tv
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -29,8 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 sealed class Screens(val route: String, val label: String, val icon: ImageVector? = null) {
     object CharactersScreen : Screens("Characters", "Characters", Icons.Default.Person)
-    object EpisodesScreen : Screens("Episodes", "Episodes", Icons.Default.Tv)
-    object LocationsScreen : Screens("Locations", "Locations", Icons.Default.LocationOn)
+    object EpisodesScreen : Screens("Episodes", "Episodes", Icons.Default.OndemandVideo)
+    object LocationsScreen : Screens("Locations", "Locations", Icons.Default.Map)
     object CharacterDetailScreen : Screens("CharacterDetail", "CharacterDetail")
     object EpisodeDetailScreen : Screens("EpisodeDetail", "EpisodeDetail")
     object LocationDetailScreen : Screens("LocationDetail", "LocationDetail")

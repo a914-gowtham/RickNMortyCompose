@@ -44,7 +44,7 @@ class CharactersDataSource(
                 )
             }
         } catch (e: Exception) {
-            LoadResult.Error(Throwable(message = "Excepted error occured"))
+            LoadResult.Error(Throwable(message = e.localizedMessage ?: "Unexpected error occurred"))
         }
     }
 
