@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.coil.rememberCoilPainter
@@ -115,27 +116,31 @@ fun DetailData(character: CharacterDetail?) {
                 }
                 item {
                     InfoRow(
-                        imageVector = Icons.Default.Android,
+                        imageVector = Icons.Outlined.SmartToy,
                         title = "Species",
                         subTitle = it.species.toString()
                     )
+                    Divider()
                     InfoRow(
                         imageVector = Icons.Outlined.Wc,
                         title = "Gender",
                         subTitle = it.gender.toString()
                     )
+                    Divider()
                     InfoRow(
-                        imageVector = Icons.Default.StackedLineChart,
+                        imageVector = Icons.Outlined.StackedLineChart,
                         title = "Status",
                         subTitle = it.status.toString()
                     )
+                    Divider()
                     InfoRow(
-                        imageVector = Icons.Default.Map,
+                        imageVector = Icons.Outlined.Map,
                         title = "Location",
                         subTitle = it.location?.name.toString()
                     )
+                    Divider()
                     InfoRow(
-                        imageVector = Icons.Default.NearMe,
+                        imageVector = Icons.Outlined.NearMe,
                         title = "Origin",
                         subTitle = it.origin?.name.toString()
                     )
@@ -156,16 +161,17 @@ fun InfoRow(imageVector: ImageVector, title: String, subTitle: String) {
             imageVector, contentDescription = title,
             modifier = Modifier.size(26.dp)
         )
-        Spacer(modifier = Modifier.width(6.dp))
+        Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = title,
-            modifier = Modifier.weight(weight = 1f),
             style = MaterialTheme.typography.body1
         )
+        Spacer(modifier = Modifier.width(80.dp))
         Text(
             text = subTitle,
-            modifier = Modifier.sizeIn(maxWidth = 160.dp),
-            style = MaterialTheme.typography.body1
+            style = MaterialTheme.typography.body1,
+            modifier = Modifier.weight(1f),
+            textAlign = TextAlign.End
         )
     }
 }
