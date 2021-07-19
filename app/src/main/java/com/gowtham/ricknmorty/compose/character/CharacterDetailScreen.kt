@@ -1,17 +1,18 @@
 package com.gowtham.ricknmorty.compose.character
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -76,74 +77,69 @@ fun CharacterDetailScreen(
 
 @Composable
 fun DetailData(character: CharacterDetail?) {
+    val listInfoTitle = listOf("Species", "Gender", "Status", "Location", "Origin")
+    val listInfo = listOf(
+        character?.species.toString(),
+        character?.species.toString(),
+        character?.status.toString(),
+        character?.location?.name.toString(),
+        character?.origin?.name.toString()
+    )
+    val listInfoIcon = listOf(
+        Icons.Outlined.SmartToy, Icons.Outlined.Wc, Icons.Outlined.StackedLineChart,
+        Icons.Outlined.Map, Icons.Outlined.NearMe
+    )
+
     Surface() {
         LazyColumn {
             character?.let {
                 item {
-                    Text(
-                        text = "Mugshot", style = MaterialTheme.typography.h6,
-                        modifier = Modifier.padding(start = 8.dp, top = 12.dp, bottom = 6.dp)
-                    )
+                    CharacterTitle("MUGSHOT")
                 }
                 item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 6.dp),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Surface(color = Color.White) {
-                            Card(
-                                modifier = Modifier.size(140.dp),
-                                shape = RoundedCornerShape(22.dp)
-                            ) {
-                                Image(
-                                    painter = rememberCoilPainter(
-                                        request = character.image, fadeIn = true,
-                                        fadeInDurationMs = 400
-                                    ),
-                                    contentDescription = character.name,
+                    CharacterImage(character)
+                }
+                item {
+                    CharacterTitle("INFO")
+                }
+                items(listInfoTitle.size) { index ->
+                    CharacterInfoRow(
+                        imageVector = listInfoIcon[index],
+                        title = listInfoTitle[index],
+                        subTitle = listInfo[index]
+                    )
+                    if (index != listInfoTitle.lastIndex)
+                        Divider()
+                }
+                item {
+                    CharacterTitle("EPISODES")
+                }
+                items(it.episode.size) { index ->
+                    val episode = it.episode[index]
+                    episode?.let {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                episode.name.toString(),
+                                modifier = Modifier.weight(1f),
+                                style = MaterialTheme.typography.subtitle1,
+                            )
+                            Spacer(modifier = Modifier.width(12.dp))
+                            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                                Text(
+                                    episode.air_date.toString(),
+                                    style = MaterialTheme.typography.body2
                                 )
                             }
                         }
+
+                        if (index != listInfoTitle.lastIndex)
+                            Divider(modifier = Modifier.padding(horizontal = 12.dp))
                     }
-                }
-                item {
-                    Text(
-                        text = "Info", style = MaterialTheme.typography.h6,
-                        modifier = Modifier.padding(start = 8.dp, top = 12.dp, bottom = 6.dp)
-                    )
-                }
-                item {
-                    InfoRow(
-                        imageVector = Icons.Outlined.SmartToy,
-                        title = "Species",
-                        subTitle = it.species.toString()
-                    )
-                    Divider()
-                    InfoRow(
-                        imageVector = Icons.Outlined.Wc,
-                        title = "Gender",
-                        subTitle = it.gender.toString()
-                    )
-                    Divider()
-                    InfoRow(
-                        imageVector = Icons.Outlined.StackedLineChart,
-                        title = "Status",
-                        subTitle = it.status.toString()
-                    )
-                    Divider()
-                    InfoRow(
-                        imageVector = Icons.Outlined.Map,
-                        title = "Location",
-                        subTitle = it.location?.name.toString()
-                    )
-                    Divider()
-                    InfoRow(
-                        imageVector = Icons.Outlined.NearMe,
-                        title = "Origin",
-                        subTitle = it.origin?.name.toString()
-                    )
                 }
             }
         }
@@ -151,7 +147,32 @@ fun DetailData(character: CharacterDetail?) {
 }
 
 @Composable
-fun InfoRow(imageVector: ImageVector, title: String, subTitle: String) {
+fun CharacterImage(character: CharacterDetail) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 6.dp),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Surface() {
+            Card(
+                modifier = Modifier.size(140.dp),
+                shape = RoundedCornerShape(22.dp)
+            ) {
+                Image(
+                    painter = rememberCoilPainter(
+                        request = character.image, fadeIn = true,
+                        fadeInDurationMs = 400
+                    ),
+                    contentDescription = character.name,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun CharacterInfoRow(imageVector: ImageVector, title: String, subTitle: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -159,7 +180,8 @@ fun InfoRow(imageVector: ImageVector, title: String, subTitle: String) {
     ) {
         Icon(
             imageVector, contentDescription = title,
-            modifier = Modifier.size(26.dp)
+            modifier = Modifier.size(26.dp),
+            tint = MaterialTheme.colors.primary
         )
         Spacer(modifier = Modifier.width(10.dp))
         Text(
@@ -189,4 +211,15 @@ fun FailedComposable(errorMessage: String, retry: () -> Unit) {
             Text(text = "Retry")
         }
     }
+}
+
+@Composable
+fun CharacterTitle(title: String) {
+    Text(
+        text = title, style = MaterialTheme.typography.subtitle1,
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.LightGray.copy(alpha = 0.6f))
+            .padding(start = 12.dp, top = 12.dp, bottom = 6.dp),
+    )
 }
