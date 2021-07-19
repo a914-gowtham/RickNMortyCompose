@@ -63,6 +63,8 @@ formatting:
   autoCorrect: true
   MaximumLineLength:
     active: false
+  MultiLineIfElse:
+    active: false
 
 naming:
   MemberNameEqualsClassName:

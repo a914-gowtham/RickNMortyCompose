@@ -7,7 +7,7 @@ import com.gowtham.ricknmorty.MainRepository
 import com.gowtham.ricknmorty.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import fragment.CharacterDetail
+import fragment.EpisodeDetail
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -18,17 +18,17 @@ class EpisodeViewModel @Inject constructor(
     @ApplicationContext appContext: Context,
 ) : ViewModel() {
 
-    private val _characterDetail = MutableStateFlow<Resource<CharacterDetail>>(Resource.Loading())
-    val state: StateFlow<Resource<CharacterDetail>>
-        get() = _characterDetail
+    private val _episodeDetail = MutableStateFlow<Resource<EpisodeDetail>>(Resource.Loading())
+    val state: StateFlow<Resource<EpisodeDetail>>
+        get() = _episodeDetail
 
     private var mainRepository: MainRepository = MainRepository(
         appContext = appContext,
         apolloClient = apolloClient
     )
 
-    suspend fun setCharacter(characterId: String) {
-        _characterDetail.value=Resource.Loading()
-        _characterDetail.value = mainRepository.getCharacter(characterId)
+    suspend fun setEpisodeId(episodeId: String) {
+        _episodeDetail.value = Resource.Loading()
+        _episodeDetail.value = mainRepository.getEpisode(episodeId)
     }
 }

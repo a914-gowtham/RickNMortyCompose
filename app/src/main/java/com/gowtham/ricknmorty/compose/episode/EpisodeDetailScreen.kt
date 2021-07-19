@@ -1,18 +1,34 @@
 package com.gowtham.ricknmorty.compose.episode
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.Text
+import androidx.compose.material.IconButton
+import androidx.compose.material.Icon
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Surface
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Button
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,37 +36,40 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.coil.rememberCoilPainter
 import com.gowtham.ricknmorty.utils.Resource
-import fragment.CharacterDetail
 import kotlinx.coroutines.launch
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Tag
+import androidx.compose.material.icons.outlined.Today
+import com.gowtham.ricknmorty.compose.characters.CharacterAvatar
+import fragment.EpisodeDetail
 
 @Composable
-fun CharacterDetailScreen(
-    characterId: String,
-    characterName: String,
-    viewModel: CharacterViewModel = hiltViewModel(),
+fun EpisodeDetailScreen(
+    episodeId: String,
+    episodeName: String,
+    viewModel: EpisodeViewModel = hiltViewModel(),
     popBack: () -> Unit
 ) {
 
     val coroutineScope = rememberCoroutineScope()
 
-    val characterState = viewModel.state.collectAsState()
+    val episodeState = viewModel.state.collectAsState()
 
-    LaunchedEffect(characterId) {
-        viewModel.setCharacter(characterId)
+    LaunchedEffect(episodeId) {
+        viewModel.setEpisodeId(episodeId)
     }
 
     val retry: () -> Unit = {
         coroutineScope.launch {
-            viewModel.setCharacter(characterId)
+            viewModel.setEpisodeId(episodeId)
         }
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(characterName) },
+                title = { Text(episodeName) },
                 navigationIcon = {
                     IconButton(onClick = { popBack() }) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
@@ -59,10 +78,10 @@ fun CharacterDetailScreen(
             )
         }
     ) {
-        when (characterState.value) {
-            is Resource.Success -> DetailData(characterState.value.data)
+        when (episodeState.value) {
+            is Resource.Success -> EpisodeDetail(episodeState.value.data)
             is Resource.Error -> FailedComposable(
-                errorMessage = characterState.value.message.toString(), retry = retry
+                errorMessage = episodeState.value.message.toString(), retry = retry
             )
             else -> CircularProgressIndicator(
                 modifier = Modifier
@@ -76,34 +95,26 @@ fun CharacterDetailScreen(
 }
 
 @Composable
-fun DetailData(character: CharacterDetail?) {
-    val listInfoTitle = listOf("Species", "Gender", "Status", "Location", "Origin")
+fun EpisodeDetail(episode: EpisodeDetail?) {
+    val listInfoTitle = listOf("Name", "Air time", "Code")
     val listInfo = listOf(
-        character?.species.toString(),
-        character?.species.toString(),
-        character?.status.toString(),
-        character?.location?.name.toString(),
-        character?.origin?.name.toString()
+        episode?.name.toString(),
+        episode?.air_date.toString(),
+        episode?.episode.toString(),
     )
     val listInfoIcon = listOf(
-        Icons.Outlined.SmartToy, Icons.Outlined.Wc, Icons.Outlined.StackedLineChart,
-        Icons.Outlined.Map, Icons.Outlined.NearMe
+        Icons.Outlined.Info, Icons.Outlined.Today,
+        Icons.Outlined.Tag
     )
 
-    Surface() {
+    Surface {
         LazyColumn {
-            character?.let {
-                item {
-                    CharacterTitle("MUGSHOT")
-                }
-                item {
-                    CharacterImage(character)
-                }
+            episode?.let { episodeDetail ->
                 item {
                     CharacterTitle("INFO")
                 }
                 items(listInfoTitle.size) { index ->
-                    CharacterInfoRow(
+                    EpisodeInfoRow(
                         imageVector = listInfoIcon[index],
                         title = listInfoTitle[index],
                         subTitle = listInfo[index]
@@ -112,32 +123,26 @@ fun DetailData(character: CharacterDetail?) {
                         Divider()
                 }
                 item {
-                    CharacterTitle("EPISODES")
+                    CharacterTitle("CHARACTERS")
                 }
-                items(it.episode.size) { index ->
-                    val episode = it.episode[index]
-                    episode?.let {
+                items(episodeDetail.characters.size) { index ->
+                    val character = episodeDetail.characters[index]
+                    character?.let {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(12.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
+                            CharacterAvatar(name = character.name.toString(), url = character.image, size = 40.dp)
                             Text(
-                                episode.name.toString(),
-                                modifier = Modifier.weight(1f),
+                                character.name.toString(),
+                                modifier = Modifier.weight(1f).padding(start = 8.dp),
                                 style = MaterialTheme.typography.subtitle1,
                             )
-                            Spacer(modifier = Modifier.width(12.dp))
-                            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                                Text(
-                                    episode.air_date.toString(),
-                                    style = MaterialTheme.typography.body2
-                                )
-                            }
                         }
 
-                        if (index != listInfoTitle.lastIndex)
+                        if (index < episode.characters.lastIndex)
                             Divider(modifier = Modifier.padding(horizontal = 12.dp))
                     }
                 }
@@ -147,36 +152,12 @@ fun DetailData(character: CharacterDetail?) {
 }
 
 @Composable
-fun CharacterImage(character: CharacterDetail) {
+fun EpisodeInfoRow(imageVector: ImageVector, title: String, subTitle: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 6.dp),
-        horizontalArrangement = Arrangement.Center
-    ) {
-        Surface() {
-            Card(
-                modifier = Modifier.size(140.dp),
-                shape = RoundedCornerShape(22.dp)
-            ) {
-                Image(
-                    painter = rememberCoilPainter(
-                        request = character.image, fadeIn = true,
-                        fadeInDurationMs = 400
-                    ),
-                    contentDescription = character.name,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun CharacterInfoRow(imageVector: ImageVector, title: String, subTitle: String) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(12.dp), verticalAlignment = Alignment.CenterVertically
+            .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector, contentDescription = title,

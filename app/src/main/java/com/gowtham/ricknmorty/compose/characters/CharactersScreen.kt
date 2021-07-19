@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
@@ -143,19 +144,7 @@ fun CharactersListRowView(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Surface(
-            modifier = Modifier.size(55.dp),
-            shape = CircleShape,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
-        ) {
-            character.image?.let {
-                Image(
-                    painter = rememberCoilPainter(it, fadeIn = true, fadeInDurationMs = 400),
-                    modifier = Modifier.size(50.dp),
-                    contentDescription = character.name
-                )
-            }
-        }
+        CharacterAvatar(name = character.name.toString(), url = character.image, size = 55.dp)
 
         Column(modifier = Modifier.padding(horizontal = 8.dp)) {
             Text(
@@ -171,4 +160,21 @@ fun CharactersListRowView(
         }
     }
     Divider(modifier = Modifier.padding(horizontal = 6.dp))
+}
+
+@Composable
+fun CharacterAvatar(name: String, url: String?, size: Dp) {
+    Surface(
+        modifier = Modifier.size(size),
+        shape = CircleShape,
+        color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
+    ) {
+        url?.let {
+            Image(
+                painter = rememberCoilPainter(it, fadeIn = true, fadeInDurationMs = 400),
+                modifier = Modifier.size(size),
+                contentDescription = name
+            )
+        }
+    }
 }

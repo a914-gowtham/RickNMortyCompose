@@ -28,7 +28,7 @@ class CharacterViewModel @Inject constructor(
     )
 
     suspend fun setCharacter(characterId: String) {
-        _characterDetail.value=Resource.Loading()
+        _characterDetail.value = Resource.Loading()
         _characterDetail.value = mainRepository.getCharacter(characterId)
     }
 }

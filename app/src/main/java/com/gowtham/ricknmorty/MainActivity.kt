@@ -9,17 +9,24 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Map
+import androidx.compose.material.icons.filled.OndemandVideo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.*
-import com.gowtham.ricknmorty.MainActivity.Companion.EPISODE_KEY
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.currentBackStackEntryAsState
+
 import com.gowtham.ricknmorty.MainActivity.Companion.LOCATION_KEY
 import com.gowtham.ricknmorty.compose.character.CharacterDetailScreen
 import com.gowtham.ricknmorty.compose.characters.CharactersScreen
+import com.gowtham.ricknmorty.compose.episode.EpisodeDetailScreen
 import com.gowtham.ricknmorty.compose.episodes.EpisodesScreen
 import com.gowtham.ricknmorty.compose.locations.LocationsScreen
 import com.gowtham.ricknmorty.compose.theme.TAppTheme
@@ -91,11 +98,28 @@ fun RickNMortyApp(viewModel: MainViewModel) {
         }
         composable(Screens.EpisodesScreen.route) {
             EpisodesScreen(viewModel, bottomBar) { episode ->
-                navController.navigate(Screens.EpisodeDetailScreen.route + "/$episode")
+                navController.navigate(
+                    Screens.EpisodeDetailScreen.route +
+                        "?episodeId=${episode.id}&episodeName=${episode.name}"
+                )
             }
         }
-        composable(Screens.EpisodeDetailScreen.route + "/$EPISODE_KEY") {
-//            Screens.EpisodeDetailScreen(viewModel, it.arguments?.get(CHARACTER_KEY) as EpisodeDetail, popBack = { navController.popBackStack() })
+        composable(
+            Screens.EpisodeDetailScreen.route +
+                "?episodeId={id}&episodeName={name}",
+            arguments = listOf(
+                navArgument("episodeId") { nullable = true },
+                navArgument("episodeName") { nullable = true }
+            )
+        ) {
+            val episodeId = it.arguments?.getString("id").toString()
+            val episodeName = it.arguments?.getString("name").toString()
+            EpisodeDetailScreen(
+                episodeName = episodeName,
+                episodeId = episodeId,
+            ) {
+                navController.popBackStack()
+            }
         }
         composable(Screens.LocationsScreen.route) {
             LocationsScreen(viewModel, bottomBar) { episode ->

@@ -1,6 +1,7 @@
 package com.gowtham.ricknmorty
 
 import GetCharacterQuery
+import GetEpisodeQuery
 import android.content.Context
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -16,7 +17,6 @@ import fragment.CharacterDetail
 import fragment.EpisodeDetail
 import fragment.LocationDetail
 import kotlinx.coroutines.flow.Flow
-import java.lang.Exception
 
 class MainRepository(
     private val appContext: Context,
@@ -47,6 +47,20 @@ class MainRepository(
             response.data?.character?.fragments?.characterDetail?.let {
                 Resource.Success(it)
             } ?: Resource.Error("Character detail is unavailable")
+        } catch (ex: Exception) {
+            print(ex)
+            Resource.Error(ex.localizedMessage ?: "Unknown error occurred")
+        }
+    }
+
+    suspend fun getEpisode(episodeId: String): Resource<EpisodeDetail> {
+        if (!Utils.isNetConnected(appContext))
+            return Resource.Error("Internet is not connected")
+        return try {
+            val response = apolloClient.query(GetEpisodeQuery(episodeId)).await()
+            response.data?.episode?.fragments?.episodeDetail?.let {
+                Resource.Success(it)
+            } ?: Resource.Error("Episode detail detail is unavailable")
         } catch (ex: Exception) {
             print(ex)
             Resource.Error(ex.localizedMessage ?: "Unknown error occurred")
