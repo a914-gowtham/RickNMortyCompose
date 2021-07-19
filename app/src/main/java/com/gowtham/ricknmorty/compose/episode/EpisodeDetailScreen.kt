@@ -1,34 +1,37 @@
 package com.gowtham.ricknmorty.compose.episode
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.Text
-import androidx.compose.material.IconButton
-import androidx.compose.material.Icon
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Surface
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Tag
+import androidx.compose.material.icons.outlined.Today
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,13 +39,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.gowtham.ricknmorty.utils.Resource
-import kotlinx.coroutines.launch
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Tag
-import androidx.compose.material.icons.outlined.Today
 import com.gowtham.ricknmorty.compose.characters.CharacterAvatar
+import com.gowtham.ricknmorty.utils.Resource
 import fragment.EpisodeDetail
+import kotlinx.coroutines.launch
 
 @Composable
 fun EpisodeDetailScreen(
@@ -134,10 +134,16 @@ fun EpisodeDetail(episode: EpisodeDetail?) {
                                 .padding(12.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            CharacterAvatar(name = character.name.toString(), url = character.image, size = 40.dp)
+                            CharacterAvatar(
+                                name = character.name.toString(),
+                                url = character.image,
+                                size = 40.dp
+                            )
                             Text(
                                 character.name.toString(),
-                                modifier = Modifier.weight(1f).padding(start = 8.dp),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(start = 8.dp),
                                 style = MaterialTheme.typography.subtitle1,
                             )
                         }

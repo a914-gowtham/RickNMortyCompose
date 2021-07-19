@@ -9,20 +9,19 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.OndemandVideo
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.currentBackStackEntryAsState
-
+import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.rememberNavController
 import com.gowtham.ricknmorty.MainActivity.Companion.LOCATION_KEY
 import com.gowtham.ricknmorty.compose.character.CharacterDetailScreen
 import com.gowtham.ricknmorty.compose.characters.CharactersScreen
