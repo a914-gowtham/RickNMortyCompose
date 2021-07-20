@@ -2,6 +2,7 @@ package com.gowtham.ricknmorty.compose.location
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo.ApolloClient
 import com.gowtham.ricknmorty.MainRepository
 import com.gowtham.ricknmorty.utils.Resource
@@ -10,6 +11,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import fragment.LocationDetail
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,8 +29,10 @@ class LocationViewModel @Inject constructor(
         apolloClient = apolloClient
     )
 
-    suspend fun setLocation(locationId: String) {
+    fun setLocation(locationId: String) {
         _locationDetail.value = Resource.Loading()
-        _locationDetail.value = mainRepository.getLocation(locationId)
+        viewModelScope.launch {
+            _locationDetail.value = mainRepository.getLocation(locationId)
+        }
     }
 }

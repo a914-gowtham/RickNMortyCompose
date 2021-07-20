@@ -16,17 +16,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import com.gowtham.ricknmorty.MainActivity.Companion.CHARACTER_ID
+import com.gowtham.ricknmorty.MainActivity.Companion.CHARACTER_NAME
+import com.gowtham.ricknmorty.MainActivity.Companion.EPISODE_ID
+import com.gowtham.ricknmorty.MainActivity.Companion.EPISODE_NAME
+import com.gowtham.ricknmorty.MainActivity.Companion.LOCATION_ID
+import com.gowtham.ricknmorty.MainActivity.Companion.LOCATION_NAME
 import com.gowtham.ricknmorty.compose.character.CharacterDetailScreen
+import com.gowtham.ricknmorty.compose.character.CharacterViewModel
 import com.gowtham.ricknmorty.compose.characters.CharactersScreen
 import com.gowtham.ricknmorty.compose.episode.EpisodeDetailScreen
+import com.gowtham.ricknmorty.compose.episode.EpisodeViewModel
 import com.gowtham.ricknmorty.compose.episodes.EpisodesScreen
 import com.gowtham.ricknmorty.compose.location.LocationDetailScreen
+import com.gowtham.ricknmorty.compose.location.LocationViewModel
 import com.gowtham.ricknmorty.compose.locations.LocationsScreen
 import com.gowtham.ricknmorty.compose.theme.TAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,6 +57,20 @@ sealed class Screens(val route: String, val label: String, val icon: ImageVector
             }
         }
     }
+
+    fun withArgs(args: Map<String, String>): String {
+        return buildString {
+            append(route)
+            append("?")
+            val iterator = args.iterator()
+            while (iterator.hasNext()) {
+                val map = iterator.next()
+                append(map.key + "=" + map.value)
+                if (iterator.hasNext())
+                    append("&")
+            }
+        }
+    }
 }
 
 @AndroidEntryPoint
@@ -55,9 +79,12 @@ class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
 
     companion object {
-        const val CHARACTER_KEY = "character_detail"
-        const val EPISODE_KEY = "episode_detail"
-        const val LOCATION_KEY = "location_detail"
+        const val CHARACTER_ID = "character_id"
+        const val EPISODE_ID = "episode_id"
+        const val LOCATION_ID = "location_id"
+        const val CHARACTER_NAME = "character_name"
+        const val EPISODE_NAME = "episode_name"
+        const val LOCATION_NAME = "location_name"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,24 +109,31 @@ fun RickNMortyApp(viewModel: MainViewModel) {
         composable(Screens.CharactersScreen.route) {
             CharactersScreen(viewModel, bottomBar) { character ->
                 navController.navigate(
-                    Screens.CharacterDetailScreen.route +
-                        "?characterId=${character.id}&characterName=${character.name}"
+                    Screens.CharacterDetailScreen.withArgs(
+                        args = mapOf(
+                            CHARACTER_ID to character.id.toString(),
+                            CHARACTER_NAME to character.name.toString(),
+                        )
+                    )
                 )
             }
         }
         composable(
             Screens.CharacterDetailScreen.route +
-                "?characterId={id}&characterName={name}",
+                "?$CHARACTER_ID={id}&$CHARACTER_NAME={name}",
             arguments = listOf(
-                navArgument("characterId") { nullable = true },
-                navArgument("characterName") { nullable = true }
+                navArgument(CHARACTER_ID) { nullable = true },
+                navArgument(CHARACTER_NAME) { nullable = true }
             )
         ) {
             val characterId = it.arguments?.getString("id").toString()
             val characterName = it.arguments?.getString("name").toString()
+            val characterViewModel = hiltViewModel<CharacterViewModel>()
+            characterViewModel.setCharacter(characterId)
             CharacterDetailScreen(
                 characterName = characterName,
                 characterId = characterId,
+                viewModel = characterViewModel
             ) {
                 navController.popBackStack()
             }
@@ -107,49 +141,63 @@ fun RickNMortyApp(viewModel: MainViewModel) {
         composable(Screens.EpisodesScreen.route) {
             EpisodesScreen(viewModel, bottomBar) { episode ->
                 navController.navigate(
-                    Screens.EpisodeDetailScreen.route +
-                        "?episodeId=${episode.id}&episodeName=${episode.name}"
+                    Screens.EpisodeDetailScreen.withArgs(
+                        args = mapOf(
+                            EPISODE_ID to episode.id.toString(),
+                            EPISODE_NAME to episode.name.toString(),
+                        )
+                    )
                 )
             }
         }
         composable(
             Screens.EpisodeDetailScreen.route +
-                "?episodeId={id}&episodeName={name}",
+                "?$EPISODE_ID={id}&$EPISODE_NAME={name}",
             arguments = listOf(
-                navArgument("episodeId") { nullable = true },
-                navArgument("episodeName") { nullable = true }
+                navArgument(EPISODE_ID) { nullable = true },
+                navArgument(EPISODE_NAME) { nullable = true }
             )
         ) {
             val episodeId = it.arguments?.getString("id").toString()
             val episodeName = it.arguments?.getString("name").toString()
+            val episodeViewModel = hiltViewModel<EpisodeViewModel>()
+            episodeViewModel.setEpisodeId(episodeId)
             EpisodeDetailScreen(
                 episodeName = episodeName,
                 episodeId = episodeId,
+                viewModel = episodeViewModel
             ) {
                 navController.popBackStack()
             }
         }
         composable(Screens.LocationsScreen.route) {
-            LocationsScreen(viewModel, bottomBar) { episode ->
+            LocationsScreen(viewModel, bottomBar) { location ->
                 navController.navigate(
-                    Screens.LocationDetailScreen.route +
-                        "?locationId=${episode.id}&locationName=${episode.name}"
+                    Screens.LocationDetailScreen.withArgs(
+                        args = mapOf(
+                            LOCATION_ID to location.id.toString(),
+                            LOCATION_NAME to location.name.toString(),
+                        )
+                    )
                 )
             }
         }
         composable(
             Screens.LocationDetailScreen.route +
-                "?locationId={id}&locationName={name}",
+                "?$LOCATION_ID={id}&$LOCATION_NAME={name}",
             arguments = listOf(
-                navArgument("locationId") { nullable = true },
-                navArgument("locationName") { nullable = true }
+                navArgument(LOCATION_ID) { nullable = true },
+                navArgument(LOCATION_NAME) { nullable = true }
             )
         ) {
             val locationId = it.arguments?.getString("id").toString()
             val locationName = it.arguments?.getString("name").toString()
+            val locationVM = hiltViewModel<LocationViewModel>()
+            locationVM.setLocation(locationId)
             LocationDetailScreen(
                 locationName = locationName,
                 locationId = locationId,
+                viewModel = locationVM
             ) {
                 navController.popBackStack()
             }

@@ -2,6 +2,7 @@ package com.gowtham.ricknmorty.compose.character
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo.ApolloClient
 import com.gowtham.ricknmorty.MainRepository
 import com.gowtham.ricknmorty.utils.Resource
@@ -10,6 +11,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import fragment.CharacterDetail
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,8 +29,10 @@ class CharacterViewModel @Inject constructor(
         apolloClient = apolloClient
     )
 
-    suspend fun setCharacter(characterId: String) {
+    fun setCharacter(characterId: String) {
         _characterDetail.value = Resource.Loading()
-        _characterDetail.value = mainRepository.getCharacter(characterId)
+        viewModelScope.launch {
+            _characterDetail.value = mainRepository.getCharacter(characterId)
+        }
     }
 }

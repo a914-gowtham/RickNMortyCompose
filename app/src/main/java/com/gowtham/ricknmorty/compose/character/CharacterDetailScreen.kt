@@ -1,21 +1,17 @@
 package com.gowtham.ricknmorty.compose.character
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ContentAlpha
@@ -37,17 +33,15 @@ import androidx.compose.material.icons.outlined.StackedLineChart
 import androidx.compose.material.icons.outlined.Wc
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.coil.rememberCoilPainter
+import com.gowtham.ricknmorty.compose.common.CharacterTitle
+import com.gowtham.ricknmorty.compose.common.FailedComposable
+import com.gowtham.ricknmorty.compose.common.InfoRow
 import com.gowtham.ricknmorty.utils.Resource
 import fragment.CharacterDetail
 import kotlinx.coroutines.launch
@@ -56,7 +50,7 @@ import kotlinx.coroutines.launch
 fun CharacterDetailScreen(
     characterId: String,
     characterName: String,
-    viewModel: CharacterViewModel = hiltViewModel(),
+    viewModel: CharacterViewModel,
     popBack: () -> Unit
 ) {
 
@@ -64,9 +58,9 @@ fun CharacterDetailScreen(
 
     val characterState = viewModel.state.collectAsState()
 
-    LaunchedEffect(characterId) {
+ /*   LaunchedEffect(characterId) {
         viewModel.setCharacter(characterId)
-    }
+    }*/
 
     val retry: () -> Unit = {
         coroutineScope.launch {
@@ -130,7 +124,7 @@ fun DetailData(character: CharacterDetail?) {
                     CharacterTitle("INFO")
                 }
                 items(listInfoTitle.size) { index ->
-                    CharacterInfoRow(
+                    InfoRow(
                         imageVector = listInfoIcon[index],
                         title = listInfoTitle[index],
                         subTitle = listInfo[index]
@@ -144,26 +138,7 @@ fun DetailData(character: CharacterDetail?) {
                 items(character.episode.size) { index ->
                     val episode = it.episode[index]
                     episode?.let {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(12.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                episode.name.toString(),
-                                modifier = Modifier.weight(1f),
-                                style = MaterialTheme.typography.subtitle1,
-                            )
-                            Spacer(modifier = Modifier.width(12.dp))
-                            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                                Text(
-                                    episode.air_date.toString(),
-                                    style = MaterialTheme.typography.body2
-                                )
-                            }
-                        }
-
+                        EpisodeRow(episode)
                         if (index < character.episode.lastIndex)
                             Divider(modifier = Modifier.padding(horizontal = 12.dp))
                     }
@@ -178,7 +153,7 @@ fun CharacterImage(character: CharacterDetail) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 6.dp),
+            .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.Center
     ) {
         Surface {
@@ -199,55 +174,24 @@ fun CharacterImage(character: CharacterDetail) {
 }
 
 @Composable
-fun CharacterInfoRow(imageVector: ImageVector, title: String, subTitle: String) {
+fun EpisodeRow(episode: CharacterDetail.Episode) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            imageVector, contentDescription = title,
-            modifier = Modifier.size(26.dp),
-            tint = MaterialTheme.colors.primary
-        )
-        Spacer(modifier = Modifier.width(10.dp))
         Text(
-            text = title,
-            style = MaterialTheme.typography.body1
-        )
-        Spacer(modifier = Modifier.width(40.dp))
-        Text(
-            text = subTitle,
-            style = MaterialTheme.typography.body1,
+            episode.name.toString(),
             modifier = Modifier.weight(1f),
-            textAlign = TextAlign.End
+            style = MaterialTheme.typography.subtitle1,
         )
-    }
-}
-
-@Composable
-fun FailedComposable(errorMessage: String, retry: () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = errorMessage, textAlign = TextAlign.Center)
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = retry) {
-            Text(text = "Retry")
+        Spacer(modifier = Modifier.width(12.dp))
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+            Text(
+                episode.air_date.toString(),
+                style = MaterialTheme.typography.body2
+            )
         }
     }
-}
-
-@Composable
-fun CharacterTitle(title: String) {
-    Text(
-        text = title, style = MaterialTheme.typography.subtitle1,
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.LightGray.copy(alpha = 0.6f))
-            .padding(start = 12.dp, top = 12.dp, bottom = 6.dp),
-    )
 }
