@@ -22,11 +22,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
-import com.gowtham.ricknmorty.MainActivity.Companion.LOCATION_KEY
 import com.gowtham.ricknmorty.compose.character.CharacterDetailScreen
 import com.gowtham.ricknmorty.compose.characters.CharactersScreen
 import com.gowtham.ricknmorty.compose.episode.EpisodeDetailScreen
 import com.gowtham.ricknmorty.compose.episodes.EpisodesScreen
+import com.gowtham.ricknmorty.compose.location.LocationDetailScreen
 import com.gowtham.ricknmorty.compose.locations.LocationsScreen
 import com.gowtham.ricknmorty.compose.theme.TAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +38,15 @@ sealed class Screens(val route: String, val label: String, val icon: ImageVector
     object CharacterDetailScreen : Screens("CharacterDetail", "CharacterDetail")
     object EpisodeDetailScreen : Screens("EpisodeDetail", "EpisodeDetail")
     object LocationDetailScreen : Screens("LocationDetail", "LocationDetail")
+
+    fun withArgs(vararg args: String): String {
+        return buildString {
+            append(route)
+            args.forEach {
+                append("/$it")
+            }
+        }
+    }
 }
 
 @AndroidEntryPoint
@@ -122,11 +131,28 @@ fun RickNMortyApp(viewModel: MainViewModel) {
         }
         composable(Screens.LocationsScreen.route) {
             LocationsScreen(viewModel, bottomBar) { episode ->
-                navController.navigate(Screens.LocationDetailScreen.route + "/$episode")
+                navController.navigate(
+                    Screens.LocationDetailScreen.route +
+                        "?locationId=${episode.id}&locationName=${episode.name}"
+                )
             }
         }
-        composable(Screens.LocationDetailScreen.route + "/$LOCATION_KEY") {
-//            Screens.LocationDetailScreen(viewModel, it.arguments?.get(LOCATION_KEY) as LocationDetail, popBack = { navController.popBackStack() })
+        composable(
+            Screens.LocationDetailScreen.route +
+                "?locationId={id}&locationName={name}",
+            arguments = listOf(
+                navArgument("locationId") { nullable = true },
+                navArgument("locationName") { nullable = true }
+            )
+        ) {
+            val locationId = it.arguments?.getString("id").toString()
+            val locationName = it.arguments?.getString("name").toString()
+            LocationDetailScreen(
+                locationName = locationName,
+                locationId = locationId,
+            ) {
+                navController.popBackStack()
+            }
         }
     }
 }

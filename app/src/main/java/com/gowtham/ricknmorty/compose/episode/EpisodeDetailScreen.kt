@@ -175,7 +175,7 @@ fun EpisodeInfoRow(imageVector: ImageVector, title: String, subTitle: String) {
             text = title,
             style = MaterialTheme.typography.body1
         )
-        Spacer(modifier = Modifier.width(80.dp))
+        Spacer(modifier = Modifier.width(40.dp))
         Text(
             text = subTitle,
             style = MaterialTheme.typography.body1,
@@ -192,7 +192,7 @@ fun FailedComposable(errorMessage: String, retry: () -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = errorMessage)
+        Text(text = errorMessage, textAlign = TextAlign.Center)
         Spacer(modifier = Modifier.height(8.dp))
         Button(onClick = retry) {
             Text(text = "Retry")

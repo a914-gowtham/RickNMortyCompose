@@ -2,6 +2,7 @@ package com.gowtham.ricknmorty
 
 import GetCharacterQuery
 import GetEpisodeQuery
+import GetLocationQuery
 import android.content.Context
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -60,7 +61,21 @@ class MainRepository(
             val response = apolloClient.query(GetEpisodeQuery(episodeId)).await()
             response.data?.episode?.fragments?.episodeDetail?.let {
                 Resource.Success(it)
-            } ?: Resource.Error("Episode detail detail is unavailable")
+            } ?: Resource.Error("Episode detail is unavailable")
+        } catch (ex: Exception) {
+            print(ex)
+            Resource.Error(ex.localizedMessage ?: "Unknown error occurred")
+        }
+    }
+
+    suspend fun getLocation(locationId: String): Resource<LocationDetail> {
+        if (!Utils.isNetConnected(appContext))
+            return Resource.Error("Internet is not connected")
+        return try {
+            val response = apolloClient.query(GetLocationQuery(locationId)).await()
+            response.data?.location?.fragments?.locationDetail?.let {
+                Resource.Success(it)
+            } ?: Resource.Error("Location detail is unavailable")
         } catch (ex: Exception) {
             print(ex)
             Resource.Error(ex.localizedMessage ?: "Unknown error occurred")

@@ -117,7 +117,7 @@ fun LocationRow(
                 style = MaterialTheme.typography.body2
             )
         }
-        Spacer(modifier = Modifier.size(6.dp))
-        Divider(modifier = Modifier.padding(horizontal = 6.dp))
+        Spacer(modifier = Modifier.size(12.dp))
+        Divider()
     }
 }

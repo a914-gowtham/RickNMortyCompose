@@ -1,6 +1,5 @@
-package com.gowtham.ricknmorty.compose.character
+package com.gowtham.ricknmorty.compose.location
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,15 +13,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
-import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
@@ -30,13 +25,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.outlined.Map
-import androidx.compose.material.icons.outlined.NearMe
-import androidx.compose.material.icons.outlined.SmartToy
-import androidx.compose.material.icons.outlined.StackedLineChart
-import androidx.compose.material.icons.outlined.Wc
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Public
+import androidx.compose.material.icons.outlined.Stream
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
@@ -47,37 +39,37 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.coil.rememberCoilPainter
+import com.gowtham.ricknmorty.compose.characters.CharacterAvatar
 import com.gowtham.ricknmorty.utils.Resource
-import fragment.CharacterDetail
+import fragment.LocationDetail
 import kotlinx.coroutines.launch
 
 @Composable
-fun CharacterDetailScreen(
-    characterId: String,
-    characterName: String,
-    viewModel: CharacterViewModel = hiltViewModel(),
+fun LocationDetailScreen(
+    locationId: String,
+    locationName: String,
+    viewModel: LocationViewModel = hiltViewModel(),
     popBack: () -> Unit
 ) {
 
     val coroutineScope = rememberCoroutineScope()
 
-    val characterState = viewModel.state.collectAsState()
+    val locationState = viewModel.state.collectAsState()
 
-    LaunchedEffect(characterId) {
-        viewModel.setCharacter(characterId)
+    LaunchedEffect(locationId) {
+        viewModel.setLocation(locationId)
     }
 
     val retry: () -> Unit = {
         coroutineScope.launch {
-            viewModel.setCharacter(characterId)
+            viewModel.setLocation(locationId)
         }
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(characterName) },
+                title = { Text(locationName) },
                 navigationIcon = {
                     IconButton(onClick = { popBack() }) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
@@ -86,10 +78,10 @@ fun CharacterDetailScreen(
             )
         }
     ) {
-        when (characterState.value) {
-            is Resource.Success -> DetailData(characterState.value.data)
+        when (locationState.value) {
+            is Resource.Success -> LocationDetail(locationState.value.data)
             is Resource.Error -> FailedComposable(
-                errorMessage = characterState.value.message.toString(), retry = retry
+                errorMessage = locationState.value.message.toString(), retry = retry
             )
             else -> CircularProgressIndicator(
                 modifier = Modifier
@@ -103,34 +95,29 @@ fun CharacterDetailScreen(
 }
 
 @Composable
-fun DetailData(character: CharacterDetail?) {
-    val listInfoTitle = listOf("Species", "Gender", "Status", "Location", "Origin")
+fun LocationDetail(location: LocationDetail?) {
+    val listInfoTitle = listOf(
+        "Name", "Type",
+        "Dimension"
+    )
     val listInfo = listOf(
-        character?.species.toString(),
-        character?.gender.toString(),
-        character?.status.toString(),
-        character?.location?.name.toString(),
-        character?.origin?.name.toString()
+        location?.name.toString(),
+        location?.type.toString(),
+        location?.dimension.toString(),
     )
     val listInfoIcon = listOf(
-        Icons.Outlined.SmartToy, Icons.Outlined.Wc, Icons.Outlined.StackedLineChart,
-        Icons.Outlined.Map, Icons.Outlined.NearMe
+        Icons.Outlined.Info, Icons.Outlined.Public,
+        Icons.Outlined.Stream
     )
 
     Surface {
         LazyColumn {
-            character?.let {
-                item {
-                    CharacterTitle("MUGSHOT")
-                }
-                item {
-                    CharacterImage(character)
-                }
+            location?.let { locationDetail ->
                 item {
                     CharacterTitle("INFO")
                 }
                 items(listInfoTitle.size) { index ->
-                    CharacterInfoRow(
+                    LocationInfoRow(
                         imageVector = listInfoIcon[index],
                         title = listInfoTitle[index],
                         subTitle = listInfo[index]
@@ -139,32 +126,32 @@ fun DetailData(character: CharacterDetail?) {
                         Divider()
                 }
                 item {
-                    CharacterTitle("EPISODES")
+                    CharacterTitle("RESIDENTS")
                 }
-                items(character.episode.size) { index ->
-                    val episode = it.episode[index]
-                    episode?.let {
+                items(locationDetail.residents.size) { index ->
+                    val character = locationDetail.residents[index]
+                    character?.let {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(12.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
+                            CharacterAvatar(
+                                name = character.name.toString(),
+                                url = character.image,
+                                size = 40.dp
+                            )
                             Text(
-                                episode.name.toString(),
-                                modifier = Modifier.weight(1f),
+                                character.name.toString(),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(start = 8.dp),
                                 style = MaterialTheme.typography.subtitle1,
                             )
-                            Spacer(modifier = Modifier.width(12.dp))
-                            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                                Text(
-                                    episode.air_date.toString(),
-                                    style = MaterialTheme.typography.body2
-                                )
-                            }
                         }
 
-                        if (index < character.episode.lastIndex)
+                        if (index < locationDetail.residents.lastIndex)
                             Divider(modifier = Modifier.padding(horizontal = 12.dp))
                     }
                 }
@@ -174,32 +161,7 @@ fun DetailData(character: CharacterDetail?) {
 }
 
 @Composable
-fun CharacterImage(character: CharacterDetail) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 6.dp),
-        horizontalArrangement = Arrangement.Center
-    ) {
-        Surface {
-            Card(
-                modifier = Modifier.size(140.dp),
-                shape = RoundedCornerShape(22.dp)
-            ) {
-                Image(
-                    painter = rememberCoilPainter(
-                        request = character.image, fadeIn = true,
-                        fadeInDurationMs = 400
-                    ),
-                    contentDescription = character.name,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun CharacterInfoRow(imageVector: ImageVector, title: String, subTitle: String) {
+fun LocationInfoRow(imageVector: ImageVector, title: String, subTitle: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
