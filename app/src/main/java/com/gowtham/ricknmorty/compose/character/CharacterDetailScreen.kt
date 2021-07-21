@@ -31,6 +31,11 @@ import androidx.compose.material.icons.outlined.NearMe
 import androidx.compose.material.icons.outlined.SmartToy
 import androidx.compose.material.icons.outlined.StackedLineChart
 import androidx.compose.material.icons.outlined.Wc
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -41,12 +46,7 @@ import com.gowtham.ricknmorty.compose.common.FailedComposable
 import com.gowtham.ricknmorty.compose.common.InfoRow
 import com.gowtham.ricknmorty.utils.Resource
 import fragment.CharacterDetail
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.LaunchedEffect
 import kotlinx.coroutines.launch
-import androidx.compose.runtime.CompositionLocalProvider
 
 @Composable
 fun CharacterDetailScreen(
