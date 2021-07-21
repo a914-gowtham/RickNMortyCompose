@@ -4,7 +4,7 @@
 <!--- You can find both of these in the url bar when you open your repository in github. -->
 ![Workflow result](https://github.com/a914-gowtham/android-template-compose/workflows/Android%20CI/badge.svg)
 
-A android app to demo. Graphql + Jetpack compose + Hilt. 
+An android app to demo. Graphql + Jetpack compose + Hilt. 
 based on https://github.com/Dimillian/MortyUI SwiftUI project and https://github.com/joreilly/MortyComposeKMM Kotlin multiplatform project
 
 <table>
