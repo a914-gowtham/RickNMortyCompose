@@ -13,12 +13,12 @@ based on https://github.com/Dimillian/MortyUI SwiftUI project and https://github
     <td>Detail</td>
   </tr>
   <tr>
-    <td><img src="arts/light_1.jpg"  width="360" height="780" ></td>
-    <td><img src="arts/light_2.jpg" width="360" height="780"  ></td>
+    <td><img src="arts/light_1.jpg"></td>
+    <td><img src="arts/light_2.jpg"  ></td>
   </tr>
     <tr>
-    <td><img src="arts/dark_1.jpg" width="360" height="780"  ></td>
-    <td><img src="arts/dark_2.jpg" width="360" height="780"  ></td>
+    <td><img src="arts/dark_1.jpg" ></td>
+    <td><img src="arts/dark_2.jpg" ></td>
   </tr>
  </table>
 
