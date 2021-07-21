@@ -9,7 +9,7 @@ based on https://github.com/Dimillian/MortyUI SwiftUI project and https://github
 
 ## 📱 Install
 
-[![RickNMortyCompose App](https://img.shields.io/badge/RickNMortyCompose-APK-blue.svg?style=for-the-badge&logo=android)](https://github.com/a914-gowtham/RickNMortyCompose/blob/master/arts/app-debug.apk)
+[![RickNMortyCompose App](https://img.shields.io/badge/RickNMortyCompose-APK-blue.svg?style=for-the-badge&logo=android)](https://github.com/a914-gowtham/RickNMortyCompose/raw/main/arts/app-debug.apk)
 
 <table>
   <tr>
