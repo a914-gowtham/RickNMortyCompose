@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,15 +29,13 @@ import com.gowtham.ricknmorty.MainActivity.Companion.EPISODE_NAME
 import com.gowtham.ricknmorty.MainActivity.Companion.LOCATION_ID
 import com.gowtham.ricknmorty.MainActivity.Companion.LOCATION_NAME
 import com.gowtham.ricknmorty.compose.character.CharacterDetailScreen
-import com.gowtham.ricknmorty.compose.character.CharacterViewModel
 import com.gowtham.ricknmorty.compose.characters.CharactersScreen
 import com.gowtham.ricknmorty.compose.episode.EpisodeDetailScreen
-import com.gowtham.ricknmorty.compose.episode.EpisodeViewModel
 import com.gowtham.ricknmorty.compose.episodes.EpisodesScreen
 import com.gowtham.ricknmorty.compose.location.LocationDetailScreen
-import com.gowtham.ricknmorty.compose.location.LocationViewModel
 import com.gowtham.ricknmorty.compose.locations.LocationsScreen
 import com.gowtham.ricknmorty.compose.theme.TAppTheme
+import com.gowtham.ricknmorty.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 
 sealed class Screens(val route: String, val label: String, val icon: ImageVector? = null) {
@@ -126,14 +123,9 @@ fun RickNMortyApp(viewModel: MainViewModel) {
                 navArgument(CHARACTER_NAME) { nullable = true }
             )
         ) {
-            val characterId = it.arguments?.getString("id").toString()
-            val characterName = it.arguments?.getString("name").toString()
-            val characterViewModel = hiltViewModel<CharacterViewModel>()
-            characterViewModel.setCharacter(characterId)
             CharacterDetailScreen(
-                characterName = characterName,
-                characterId = characterId,
-                viewModel = characterViewModel
+                characterName = Utils.getStringArg("name", it),
+                characterId = Utils.getStringArg("id", it),
             ) {
                 navController.popBackStack()
             }
@@ -158,14 +150,9 @@ fun RickNMortyApp(viewModel: MainViewModel) {
                 navArgument(EPISODE_NAME) { nullable = true }
             )
         ) {
-            val episodeId = it.arguments?.getString("id").toString()
-            val episodeName = it.arguments?.getString("name").toString()
-            val episodeViewModel = hiltViewModel<EpisodeViewModel>()
-            episodeViewModel.setEpisodeId(episodeId)
             EpisodeDetailScreen(
-                episodeName = episodeName,
-                episodeId = episodeId,
-                viewModel = episodeViewModel
+                episodeName = Utils.getStringArg("name", it),
+                episodeId = Utils.getStringArg("id", it),
             ) {
                 navController.popBackStack()
             }
@@ -190,14 +177,9 @@ fun RickNMortyApp(viewModel: MainViewModel) {
                 navArgument(LOCATION_NAME) { nullable = true }
             )
         ) {
-            val locationId = it.arguments?.getString("id").toString()
-            val locationName = it.arguments?.getString("name").toString()
-            val locationVM = hiltViewModel<LocationViewModel>()
-            locationVM.setLocation(locationId)
             LocationDetailScreen(
-                locationName = locationName,
-                locationId = locationId,
-                viewModel = locationVM
+                locationName = Utils.getStringArg("name", it),
+                locationId = Utils.getStringArg("id", it),
             ) {
                 navController.popBackStack()
             }

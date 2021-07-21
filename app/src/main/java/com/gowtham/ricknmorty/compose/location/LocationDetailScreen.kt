@@ -28,6 +28,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.gowtham.ricknmorty.compose.characters.CharacterAvatar
 import com.gowtham.ricknmorty.compose.common.CharacterTitle
 import com.gowtham.ricknmorty.compose.common.FailedComposable
@@ -40,7 +41,7 @@ import kotlinx.coroutines.launch
 fun LocationDetailScreen(
     locationId: String,
     locationName: String,
-    viewModel: LocationViewModel,
+    viewModel: LocationViewModel = hiltViewModel(),
     popBack: () -> Unit
 ) {
 

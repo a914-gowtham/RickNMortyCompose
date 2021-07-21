@@ -1,10 +1,13 @@
 package com.gowtham.ricknmorty.di
 
+import android.content.Context
 import com.apollographql.apollo.ApolloClient
 import com.gowtham.ricknmorty.BuildConfig
+import com.gowtham.ricknmorty.remote.ApiHelperImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -44,5 +47,17 @@ object AppModule {
             .okHttpClient(okHttpClient)
             .serverUrl(BASE_URL)
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiHelper(
+        apollo: ApolloClient,
+        @ApplicationContext context: Context
+    ): ApiHelperImpl {
+        return ApiHelperImpl(
+            appContext = context,
+            apolloClient = apollo
+        )
     }
 }

@@ -9,6 +9,7 @@ import android.net.NetworkCapabilities.TRANSPORT_ETHERNET
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.os.Build
 import android.provider.ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
+import androidx.navigation.NavBackStackEntry
 
 object Utils {
 
@@ -38,4 +39,7 @@ object Utils {
         }
         return false
     }
+
+    fun getStringArg(key: String, entry: NavBackStackEntry) =
+        entry.arguments?.getString(key).toString()
 }

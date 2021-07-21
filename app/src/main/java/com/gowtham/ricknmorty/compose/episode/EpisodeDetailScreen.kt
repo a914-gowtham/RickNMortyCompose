@@ -22,11 +22,13 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Tag
 import androidx.compose.material.icons.outlined.Today
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.gowtham.ricknmorty.compose.characters.CharacterAvatar
 import com.gowtham.ricknmorty.compose.common.CharacterTitle
 import com.gowtham.ricknmorty.compose.common.FailedComposable
@@ -39,7 +41,7 @@ import kotlinx.coroutines.launch
 fun EpisodeDetailScreen(
     episodeId: String,
     episodeName: String,
-    viewModel: EpisodeViewModel,
+    viewModel: EpisodeViewModel = hiltViewModel(),
     popBack: () -> Unit
 ) {
 
@@ -47,9 +49,9 @@ fun EpisodeDetailScreen(
 
     val episodeState = viewModel.state.collectAsState()
 
-/*    LaunchedEffect(episodeId) {
+    LaunchedEffect(episodeId) {
         viewModel.setEpisodeId(episodeId)
-    }*/
+    }
 
     val retry: () -> Unit = {
         coroutineScope.launch {
