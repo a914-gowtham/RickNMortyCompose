@@ -7,6 +7,10 @@
 An android app to demo. Graphql + Jetpack compose + Hilt. 
 based on https://github.com/Dimillian/MortyUI SwiftUI project and https://github.com/joreilly/MortyComposeKMM Kotlin multiplatform mobile project
 
+## 📱 Install
+
+[![RickNMortyCompose App](https://img.shields.io/badge/RickNMortyCompose-APK-blue.svg?style=for-the-badge&logo=android)](https://github.com/a914-gowtham/RickNMortyCompose/blob/master/arts/app-debug.apk)
+
 <table>
   <tr>
     <td>List</td>
