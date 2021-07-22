@@ -3,7 +3,6 @@ package com.gowtham.ricknmorty
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -36,7 +35,7 @@ import com.gowtham.ricknmorty.compose.location.LocationDetailScreen
 import com.gowtham.ricknmorty.compose.locations.LocationsScreen
 import com.gowtham.ricknmorty.compose.theme.TAppTheme
 import com.gowtham.ricknmorty.utils.Utils
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 sealed class Screens(val route: String, val label: String, val icon: ImageVector? = null) {
     object CharactersScreen : Screens("Characters", "Characters", Icons.Default.Person)
@@ -70,10 +69,9 @@ sealed class Screens(val route: String, val label: String, val icon: ImageVector
     }
 }
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModel()
 
     companion object {
         const val CHARACTER_ID = "character_id"

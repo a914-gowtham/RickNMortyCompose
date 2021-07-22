@@ -4,15 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gowtham.ricknmorty.MainRepository
 import com.gowtham.ricknmorty.utils.Resource
-import dagger.hilt.android.lifecycle.HiltViewModel
 import fragment.EpisodeDetail
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.dsl.module
 
-@HiltViewModel
-class EpisodeViewModel @Inject constructor(
+val episodeViewModel = module {
+    factory { EpisodeViewModel(get()) }
+}
+
+class EpisodeViewModel(
     private val mainRepository: MainRepository
 ) : ViewModel() {
 

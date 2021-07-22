@@ -3,7 +3,6 @@ plugins {
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinKapt)
     id(Plugins.Apollo.plugin).version(Plugins.Apollo.version)
-    id(Plugins.hilt)
 }
 
 android {
@@ -65,7 +64,6 @@ dependencies {
 
     // Navigation
     implementation(Dependencies.Navigation.dependency)
-    implementation(Dependencies.Navigation.hilt)
 
     // Compose
     implementation(Dependencies.Compose.ui)
@@ -78,9 +76,10 @@ dependencies {
     // Lifecycle
     implementation(Dependencies.Lifecycle.runtime)
 
-    // Hilt
-    implementation(Dependencies.Hilt.dependency)
-    kapt(Dependencies.Hilt.compiler)
+    // Koin
+    implementation("io.insert-koin:koin-android:3.1.2")
+    implementation("io.insert-koin:koin-androidx-compose:3.1.2")
+    testImplementation("io.insert-koin:koin-test:3.1.2")
 
     // Apollo graphql
     implementation(Dependencies.Apollo.runtime)

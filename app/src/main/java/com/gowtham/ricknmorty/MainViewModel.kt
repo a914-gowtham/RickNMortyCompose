@@ -3,11 +3,8 @@ package com.gowtham.ricknmorty
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel @Inject constructor(
+class MainViewModel(
     mainRepository: MainRepository
 ) :
     ViewModel() {

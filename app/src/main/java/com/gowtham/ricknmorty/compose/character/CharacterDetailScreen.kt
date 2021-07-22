@@ -39,7 +39,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.coil.rememberCoilPainter
 import com.gowtham.ricknmorty.compose.common.CharacterTitle
 import com.gowtham.ricknmorty.compose.common.FailedComposable
@@ -47,12 +46,13 @@ import com.gowtham.ricknmorty.compose.common.InfoRow
 import com.gowtham.ricknmorty.utils.Resource
 import fragment.CharacterDetail
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun CharacterDetailScreen(
     characterId: String,
     characterName: String,
-    viewModel: CharacterViewModel = hiltViewModel(),
+    viewModel: CharacterViewModel = getViewModel(),
     popBack: () -> Unit
 ) {
 

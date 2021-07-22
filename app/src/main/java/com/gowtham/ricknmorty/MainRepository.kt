@@ -1,10 +1,9 @@
 package com.gowtham.ricknmorty
 
 import com.gowtham.ricknmorty.remote.ApiHelper
-import javax.inject.Inject
 
-class MainRepository @Inject constructor(
-    private val apiHelper: ApiHelper // injects by hilt
+class MainRepository(
+    private val apiHelper: ApiHelper // injected in appModule
 ) {
 
     fun getCharacterFlow() = apiHelper.getCharacters()

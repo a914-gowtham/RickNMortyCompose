@@ -4,15 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gowtham.ricknmorty.MainRepository
 import com.gowtham.ricknmorty.utils.Resource
-import dagger.hilt.android.lifecycle.HiltViewModel
 import fragment.CharacterDetail
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.dsl.module
 
-@HiltViewModel
-class CharacterViewModel @Inject constructor(
+val characterViewModel = module {
+    factory { CharacterViewModel(get()) }
+}
+
+class CharacterViewModel(
     private val mainRepository: MainRepository
 ) : ViewModel() {
 

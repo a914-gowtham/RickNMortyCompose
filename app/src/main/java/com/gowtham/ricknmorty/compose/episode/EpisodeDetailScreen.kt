@@ -28,7 +28,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.gowtham.ricknmorty.compose.characters.CharacterAvatar
 import com.gowtham.ricknmorty.compose.common.CharacterTitle
 import com.gowtham.ricknmorty.compose.common.FailedComposable
@@ -36,12 +35,13 @@ import com.gowtham.ricknmorty.compose.common.InfoRow
 import com.gowtham.ricknmorty.utils.Resource
 import fragment.EpisodeDetail
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun EpisodeDetailScreen(
     episodeId: String,
     episodeName: String,
-    viewModel: EpisodeViewModel = hiltViewModel(),
+    viewModel: EpisodeViewModel = getViewModel(),
     popBack: () -> Unit
 ) {
 

@@ -1,63 +1,14 @@
 package com.gowtham.ricknmorty.di
 
-import android.content.Context
-import com.apollographql.apollo.ApolloClient
-import com.gowtham.ricknmorty.BuildConfig
+import com.gowtham.ricknmorty.MainRepository
+import com.gowtham.ricknmorty.MainViewModel
+import com.gowtham.ricknmorty.remote.ApiHelper
 import com.gowtham.ricknmorty.remote.ApiHelperImpl
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object AppModule {
-
-    private const val BASE_URL = "https://rickandmortyapi.com/graphql/"
-    private const val TIMEOUT = 60L
-
-    @Singleton
-    @Provides
-    fun provideHttpClient(): OkHttpClient {
-        val okHttp = OkHttpClient().newBuilder()
-            .callTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .readTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .retryOnConnectionFailure(true)
-
-        if (BuildConfig.DEBUG) {
-            okHttp.addInterceptor(
-                HttpLoggingInterceptor().apply {
-                    level = HttpLoggingInterceptor.Level.BODY
-                }
-            )
-        }
-        return okHttp.build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideApolloClient(okHttpClient: OkHttpClient): ApolloClient {
-        return ApolloClient.builder()
-            .okHttpClient(okHttpClient)
-            .serverUrl(BASE_URL)
-            .build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideApiHelper(
-        apollo: ApolloClient,
-        @ApplicationContext context: Context
-    ): ApiHelperImpl {
-        return ApiHelperImpl(
-            appContext = context,
-            apolloClient = apollo
-        )
-    }
+val appModule = module {
+    single<ApiHelper> { ApiHelperImpl(get(), get()) }
+    single { MainRepository(get()) }
+    viewModel { MainViewModel(get()) }
 }
