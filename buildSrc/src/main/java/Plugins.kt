@@ -7,7 +7,7 @@ object Plugins {
 
     object Spotless {
         const val plugin = "com.diffplug.spotless"
-        const val version = "5.9.0"
+        const val version = "5.14.2"
     }
 
     object Detekt {

@@ -22,8 +22,8 @@ object Dependencies {
 
     object Android {
         const val ktx = "androidx.core:core-ktx:1.5.0"
-        const val appCompat = "androidx.appcompat:appcompat:1.3.0"
-        const val material = "com.google.android.material:material:1.3.0"
+        const val appCompat = "androidx.appcompat:appcompat:1.3.1"
+        const val material = "com.google.android.material:material:1.4.0"
         const val prefs = "androidx.preference:preference-ktx:1.1.1"
     }
 
@@ -39,7 +39,7 @@ object Dependencies {
     }
 
     object Compose {
-        const val version = "1.0.0-rc02"
+        const val version = "1.0.0"
         const val ui = "androidx.compose.ui:ui:$version"
         const val material = "androidx.compose.material:material:$version"
         const val tooling = "androidx.compose.ui:ui-tooling:$version"
@@ -56,8 +56,15 @@ object Dependencies {
         const val coroutine = "com.apollographql.apollo:apollo-coroutines-support:$version"
     }
 
+    object Koin {
+        const val version = "3.1.2"
+        const val koinAndroid = "io.insert-koin:koin-android:$version"
+        const val compose = "io.insert-koin:koin-androidx-compose:$version"
+        const val test = "io.insert-koin:koin-test:$version"
+    }
+
     object Accompanist {
-        private const val version = "0.13.0"
+        private const val version = "0.15.0"
         const val coil = "com.google.accompanist:accompanist-coil:$version"
         const val windowInsets = "com.google.accompanist:accompanist-insets:$version"
         const val placeholder = "com.google.accompanist:accompanist-placeholder$version"
@@ -82,7 +89,7 @@ object Dependencies {
     object Testing {
         const val junit = "junit:junit:4.13.2"
         const val junitAndroid = "androidx.test.ext:junit:1.1.2"
-        const val espresso = "androidx.test.espresso:espresso-core:3.3.0"
+        const val espresso = "androidx.test.espresso:espresso-core:3.4.0"
         const val junitCompose = "androidx.compose.ui:ui-test-junit4:1.0.0-alpha07"
     }
 }
