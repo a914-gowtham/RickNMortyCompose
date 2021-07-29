@@ -176,7 +176,7 @@ fun CharacterAvatar(name: String, url: String?, size: Dp) {
                     data = it,
                     imageLoader = LocalImageLoader.current,
                     builder = {
-                         crossfade(durationMillis = 400)
+                        crossfade(durationMillis = 400)
                         placeholder(0)
                     }
                 ),

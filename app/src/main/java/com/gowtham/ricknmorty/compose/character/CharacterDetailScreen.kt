@@ -169,7 +169,7 @@ fun CharacterImage(character: CharacterDetail) {
                         data = character.image,
                         imageLoader = LocalImageLoader.current,
                         builder = {
-                           crossfade(
+                            crossfade(
                                 durationMillis = 400
                             )
                             placeholder(0)
