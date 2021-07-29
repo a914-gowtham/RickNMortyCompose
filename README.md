@@ -4,8 +4,12 @@
 <!--- You can find both of these in the url bar when you open your repository in github. -->
 ![Workflow result](https://github.com/a914-gowtham/android-template-compose/workflows/Android%20CI/badge.svg)
 
-An android app to demo. Graphql + Jetpack compose + Hilt. 
+An android app to demo. Graphql + Jetpack compose + Hilt / Koin(koin branch). 
 based on https://github.com/Dimillian/MortyUI SwiftUI project and https://github.com/joreilly/MortyComposeKMM Kotlin multiplatform mobile project
+
+## 📱 Install
+
+[![RickNMortyCompose App](https://img.shields.io/badge/RickNMortyCompose-APK-blue.svg?style=for-the-badge&logo=android)](https://github.com/a914-gowtham/RickNMortyCompose/releases/tag/v1.0.0)
 
 <table>
   <tr>
