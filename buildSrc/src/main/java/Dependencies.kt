@@ -73,7 +73,7 @@ object Dependencies {
     }
 
     object Hilt {
-        const val version = "2.37"
+        const val version = "2.38.1"
         const val plugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val dependency = "com.google.dagger:hilt-android:$version"
         const val compiler = "com.google.dagger:hilt-android-compiler:$version"
