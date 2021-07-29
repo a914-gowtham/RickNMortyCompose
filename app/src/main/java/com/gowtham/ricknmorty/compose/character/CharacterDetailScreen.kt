@@ -39,7 +39,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.coil.rememberCoilPainter
+import coil.compose.LocalImageLoader
+import coil.compose.rememberImagePainter
 import com.gowtham.ricknmorty.compose.common.CharacterTitle
 import com.gowtham.ricknmorty.compose.common.FailedComposable
 import com.gowtham.ricknmorty.compose.common.InfoRow
@@ -164,9 +165,15 @@ fun CharacterImage(character: CharacterDetail) {
                 shape = RoundedCornerShape(22.dp)
             ) {
                 Image(
-                    painter = rememberCoilPainter(
-                        request = character.image, fadeIn = true,
-                        fadeInDurationMs = 400
+                    painter = rememberImagePainter(
+                        data = character.image,
+                        imageLoader = LocalImageLoader.current,
+                        builder = {
+                            crossfade(
+                                durationMillis = 400
+                            )
+                            placeholder(0)
+                        }
                     ),
                     contentDescription = character.name,
                 )

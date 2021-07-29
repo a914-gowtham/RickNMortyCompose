@@ -77,9 +77,9 @@ dependencies {
     implementation(Dependencies.Lifecycle.runtime)
 
     // Koin
-    implementation("io.insert-koin:koin-android:3.1.2")
-    implementation("io.insert-koin:koin-androidx-compose:3.1.2")
-    testImplementation("io.insert-koin:koin-test:3.1.2")
+    implementation(Dependencies.Koin.koinAndroid)
+    implementation(Dependencies.Koin.compose)
+    testImplementation(Dependencies.Koin.test)
 
     // Apollo graphql
     implementation(Dependencies.Apollo.runtime)

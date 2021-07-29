@@ -39,7 +39,8 @@ import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
-import com.google.accompanist.coil.rememberCoilPainter
+import coil.compose.LocalImageLoader
+import coil.compose.rememberImagePainter
 import com.gowtham.ricknmorty.MainViewModel
 import fragment.CharacterDetail
 
@@ -171,7 +172,14 @@ fun CharacterAvatar(name: String, url: String?, size: Dp) {
     ) {
         url?.let {
             Image(
-                painter = rememberCoilPainter(it, fadeIn = true, fadeInDurationMs = 400),
+                painter = rememberImagePainter(
+                    data = it,
+                    imageLoader = LocalImageLoader.current,
+                    builder = {
+                        crossfade(durationMillis = 400)
+                        placeholder(0)
+                    }
+                ),
                 modifier = Modifier.size(size),
                 contentDescription = name
             )
