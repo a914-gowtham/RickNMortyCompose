@@ -41,6 +41,11 @@ android {
     }
     buildFeatures {
         compose = true
+        // Disable unused AGP features
+        aidl =  false
+        renderScript = false
+        resValues = false
+        shaders = false
     }
     composeOptions {
         kotlinCompilerExtensionVersion = Dependencies.Compose.version
@@ -61,6 +66,7 @@ dependencies {
     implementation(Dependencies.Android.ktx)
     implementation(Dependencies.Android.appCompat)
     implementation(Dependencies.Android.material)
+    implementation(Dependencies.Android.splashScreen)
 
     // Navigation
     implementation(Dependencies.Navigation.dependency)
@@ -90,6 +96,7 @@ dependencies {
 
     // Accompanist
     implementation(Dependencies.Accompanist.coil)
+    implementation(Dependencies.Accompanist.animation)
 
     // Testing
     testImplementation(Dependencies.Testing.junit)

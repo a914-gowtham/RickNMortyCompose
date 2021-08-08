@@ -19,6 +19,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
+    <style name="Theme.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#FFFFFF</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.TApp</item>
+    </style>
+
     <style name="Theme.TApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.TApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

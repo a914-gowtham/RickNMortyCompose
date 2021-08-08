@@ -12,7 +12,7 @@ object Dependencies {
     }
 
     object Kotlin {
-        const val version = "1.5.10"
+        const val version = "1.5.21"
         private const val coroutinesVersion = "1.5.0"
         const val stbLib = "org.jetbrains.kotlin:kotlin-stdlib:$version"
         const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
@@ -25,6 +25,8 @@ object Dependencies {
         const val appCompat = "androidx.appcompat:appcompat:1.3.1"
         const val material = "com.google.android.material:material:1.4.0"
         const val prefs = "androidx.preference:preference-ktx:1.1.1"
+        const val crypto = "androidx.security:security-crypto:1.1.0-alpha03"
+        const val splashScreen = "androidx.core:core-splashscreen:1.0.0-alpha01"
     }
 
     object DataStore {
@@ -39,7 +41,7 @@ object Dependencies {
     }
 
     object Compose {
-        const val version = "1.0.0"
+        const val version = "1.0.1"
         const val ui = "androidx.compose.ui:ui:$version"
         const val material = "androidx.compose.material:material:$version"
         const val tooling = "androidx.compose.ui:ui-tooling:$version"
@@ -64,8 +66,9 @@ object Dependencies {
     }
 
     object Accompanist {
-        private const val version = "0.15.0"
-        const val coil = "com.google.accompanist:accompanist-coil:$version"
+        private const val version = "0.16.0"
+        const val coil = "com.google.accompanist:accompanist-coil:0.15.0"
+        const val animation = "com.google.accompanist:accompanist-navigation-animation:$version"
         const val windowInsets = "com.google.accompanist:accompanist-insets:$version"
         const val placeholder = "com.google.accompanist:accompanist-placeholder$version"
         const val flexLayout = "com.google.accompanist:accompanist-flowlayout:$version"
