@@ -1,7 +1,7 @@
 package com.gowtham.ricknmorty.di
 
-import com.gowtham.ricknmorty.remote.ApiHelper
-import com.gowtham.ricknmorty.remote.ApiHelperImpl
+import com.gowtham.ricknmorty.data.ApiDataSource
+import com.gowtham.ricknmorty.data.ApiDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,6 +13,6 @@ abstract class ApiModule {
 
     @Binds
     abstract fun bindAnalyticsService(
-        analyticsServiceImpl: ApiHelperImpl
-    ): ApiHelper
+        analyticsServiceImpl: ApiDataSourceImpl
+    ): ApiDataSource
 }
