@@ -1,9 +1,7 @@
 package com.gowtham.ricknmorty.presentation.compose.episode
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gowtham.ricknmorty.data.MainRepository
 import com.gowtham.ricknmorty.domain.EpisodeUseCase
 import com.gowtham.ricknmorty.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +21,7 @@ class EpisodeViewModel @Inject constructor(
     val state: StateFlow<Resource<EpisodeDetail>>
         get() = _episodeDetail
 
-    fun setEpisodeId(context: Context, episodeId: String) {
+    fun setEpisodeId(episodeId: String) {
         if (_episodeDetail.value is Resource.Success)
             return
         _episodeDetail.value = Resource.Loading()

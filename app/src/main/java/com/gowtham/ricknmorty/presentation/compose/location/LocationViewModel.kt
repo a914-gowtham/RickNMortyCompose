@@ -26,7 +26,7 @@ class LocationViewModel @Inject constructor(
             return
         _locationDetail.value = Resource.Loading()
         viewModelScope.launch {
-            _locationDetail.value = locationUseCase.getLocation(context,locationId)
+            _locationDetail.value = locationUseCase.getLocation(context, locationId)
         }
     }
 }

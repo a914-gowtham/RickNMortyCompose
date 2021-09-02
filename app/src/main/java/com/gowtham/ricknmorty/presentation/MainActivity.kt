@@ -12,14 +12,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.splashscreen.SplashScreen
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.gowtham.ricknmorty.presentation.theme.TAppTheme
 import com.gowtham.ricknmorty.presentation.navigation.AppNavigation
 import com.gowtham.ricknmorty.presentation.navigation.Screens
+import com.gowtham.ricknmorty.presentation.theme.TAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

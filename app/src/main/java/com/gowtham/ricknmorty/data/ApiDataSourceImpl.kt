@@ -13,7 +13,6 @@ import com.gowtham.ricknmorty.data.paging.EpisodesDataSource
 import com.gowtham.ricknmorty.data.paging.LocationsDataSource
 import com.gowtham.ricknmorty.utils.Resource
 import com.gowtham.ricknmorty.utils.Utils
-import dagger.hilt.android.qualifiers.ApplicationContext
 import fragment.CharacterDetail
 import fragment.EpisodeDetail
 import fragment.LocationDetail

@@ -6,11 +6,11 @@ class MainRepository @Inject constructor(
     private val apiDataSourceImpl: ApiDataSource // injects by hilt
 ) : ApiDataSource {
 
-    override fun getCharacters()= apiDataSourceImpl.getCharacters()
+    override fun getCharacters() = apiDataSourceImpl.getCharacters()
 
-    override fun getEpisodes()= apiDataSourceImpl.getEpisodes()
+    override fun getEpisodes() = apiDataSourceImpl.getEpisodes()
 
-    override fun getLocations()= apiDataSourceImpl.getLocations()
+    override fun getLocations() = apiDataSourceImpl.getLocations()
 
     override suspend fun getCharacter(
         characterId: String
@@ -22,5 +22,5 @@ class MainRepository @Inject constructor(
 
     override suspend fun getLocation(
         locationId: String
-    ) = apiDataSourceImpl.getLocation( locationId)
+    ) = apiDataSourceImpl.getLocation(locationId)
 }

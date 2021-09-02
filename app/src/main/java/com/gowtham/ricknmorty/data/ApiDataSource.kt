@@ -1,6 +1,5 @@
 package com.gowtham.ricknmorty.data
 
-import android.content.Context
 import androidx.paging.PagingData
 import com.gowtham.ricknmorty.utils.Resource
 import fragment.CharacterDetail

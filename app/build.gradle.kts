@@ -96,7 +96,7 @@ dependencies {
 
     // Accompanist
     implementation(Dependencies.Accompanist.coil)
-    implementation(Dependencies.Accompanist.animation)
+//    implementation(Dependencies.Accompanist.animation)
 
     // Testing
     testImplementation(Dependencies.Testing.junit)

@@ -123,7 +123,7 @@ fun AppNavigation(
     }
 }
 
-const val ANIMATION_DURATION= 300
+const val ANIMATION_DURATION = 300
 @ExperimentalAnimationApi
 fun enterTransition(desRoute: String, initial: NavBackStackEntry): EnterTransition? {
     return when (initial.destination.route) {

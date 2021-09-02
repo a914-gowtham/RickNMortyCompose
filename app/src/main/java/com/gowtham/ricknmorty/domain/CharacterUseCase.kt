@@ -1,6 +1,5 @@
 package com.gowtham.ricknmorty.domain
 
-import android.content.Context
 import com.gowtham.ricknmorty.data.MainRepository
 import javax.inject.Inject
 

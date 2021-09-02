@@ -52,8 +52,7 @@ fun LocationDetailScreen(
     val locationState = viewModel.state.collectAsState()
 
     LaunchedEffect(locationId) {
-        viewModel.setLocation(context
-            ,locationId)
+        viewModel.setLocation(context, locationId)
     }
 
     val retry: () -> Unit = {
