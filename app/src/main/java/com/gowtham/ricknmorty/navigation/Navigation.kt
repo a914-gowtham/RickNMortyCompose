@@ -24,7 +24,6 @@ import com.gowtham.ricknmorty.compose.location.LocationDetailScreen
 import com.gowtham.ricknmorty.compose.locations.LocationsScreen
 import com.gowtham.ricknmorty.utils.Utils
 
-@ExperimentalAnimationApi
 @Composable
 fun AppNavigation(
     viewModel: MainViewModel,
@@ -123,7 +122,7 @@ fun AppNavigation(
     }
 }
 
-const val ANIMATION_DURATION= 300
+const val ANIMATION_DURATION = 300
 @ExperimentalAnimationApi
 fun enterTransition(desRoute: String, initial: NavBackStackEntry): EnterTransition? {
     return when (initial.destination.route) {

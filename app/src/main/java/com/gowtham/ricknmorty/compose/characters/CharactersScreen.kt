@@ -1,6 +1,5 @@
 package com.gowtham.ricknmorty.compose.characters
 
-import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -30,14 +29,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.unit.Dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -53,13 +51,6 @@ fun CharactersScreen(
     onClickListener: (character: CharacterDetail) -> Unit
 ) {
     val lazyCharacterList = viewModel.characters.collectAsLazyPagingItems()
-
-    val state = remember {
-        MutableTransitionState(false).apply {
-            // Start the animation immediately.
-            targetState = true
-        }
-    }
     Scaffold(
         topBar = { TopAppBar(title = { Text("Characters") }) },
         bottomBar = bottomBar,
@@ -104,7 +95,6 @@ fun CharactersScreen(
                 }
             }
         }
-
         if (lazyCharacterList.loadState.refresh is LoadState.Error) {
             val state = lazyCharacterList.loadState.refresh as LoadState.Error
             val errorMessage = state.error.localizedMessage ?: "unknown error occurred"

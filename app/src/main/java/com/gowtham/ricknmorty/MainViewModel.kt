@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+const val DURATION= 2000L
 @HiltViewModel
 class MainViewModel @Inject constructor(
     mainRepository: MainRepository
 ) :
     ViewModel() {
 
-     val DURATION= 2000L
     private val _splashState = MutableStateFlow(true)
     val splash: StateFlow<Boolean>
         get() = _splashState

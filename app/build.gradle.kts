@@ -96,8 +96,9 @@ dependencies {
 
     // Accompanist
     implementation(Dependencies.Accompanist.coil)
-    implementation(Dependencies.Accompanist.animation)
-
+    // Hilt
+    implementation(Dependencies.Hilt.dependency)
+    kapt(Dependencies.Hilt.compiler)
     // Testing
     testImplementation(Dependencies.Testing.junit)
     androidTestImplementation(Dependencies.Testing.junitAndroid)
