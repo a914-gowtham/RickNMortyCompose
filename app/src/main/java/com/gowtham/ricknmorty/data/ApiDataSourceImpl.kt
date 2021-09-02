@@ -13,27 +13,29 @@ import com.gowtham.ricknmorty.data.paging.EpisodesDataSource
 import com.gowtham.ricknmorty.data.paging.LocationsDataSource
 import com.gowtham.ricknmorty.utils.Resource
 import com.gowtham.ricknmorty.utils.Utils
+import dagger.hilt.android.qualifiers.ApplicationContext
 import fragment.CharacterDetail
 import fragment.EpisodeDetail
 import fragment.LocationDetail
 
 class ApiDataSourceImpl(
+    private val context: Context,
     private val apolloClient: ApolloClient
 ) : ApiDataSource {
 
-    override fun getCharacters(context: Context) = Pager(PagingConfig(pageSize = 20)) {
+    override fun getCharacters() = Pager(PagingConfig(pageSize = 20)) {
         CharactersDataSource(context = context, apollo = apolloClient)
     }.flow
 
-    override fun getEpisodes(context: Context) = Pager(PagingConfig(pageSize = 20)) {
+    override fun getEpisodes() = Pager(PagingConfig(pageSize = 20)) {
         EpisodesDataSource(context = context, apollo = apolloClient)
     }.flow
 
-    override fun getLocations(context: Context) = Pager(PagingConfig(pageSize = 20)) {
+    override fun getLocations() = Pager(PagingConfig(pageSize = 20)) {
         LocationsDataSource(context = context, apollo = apolloClient)
     }.flow
 
-    override suspend fun getCharacter(context: Context,characterId: String): Resource<CharacterDetail> {
+    override suspend fun getCharacter(characterId: String): Resource<CharacterDetail> {
         if (!Utils.isNetConnected(context))
             return Resource.Error("Internet is not connected")
         return try {
@@ -47,7 +49,7 @@ class ApiDataSourceImpl(
         }
     }
 
-    override suspend fun getEpisode(context: Context,episodeId: String): Resource<EpisodeDetail> {
+    override suspend fun getEpisode(episodeId: String): Resource<EpisodeDetail> {
         if (!Utils.isNetConnected(context))
             return Resource.Error("Internet is not connected")
         return try {
@@ -61,7 +63,7 @@ class ApiDataSourceImpl(
         }
     }
 
-    override suspend fun getLocation(context: Context,locationId: String): Resource<LocationDetail> {
+    override suspend fun getLocation(locationId: String): Resource<LocationDetail> {
         if (!Utils.isNetConnected(context))
             return Resource.Error("Internet is not connected")
         return try {

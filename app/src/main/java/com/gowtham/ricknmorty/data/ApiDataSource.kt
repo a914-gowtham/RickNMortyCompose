@@ -10,15 +10,15 @@ import kotlinx.coroutines.flow.Flow
 
 interface ApiDataSource {
 
-    fun getCharacters(context: Context): Flow<PagingData<CharacterDetail>>
+    fun getCharacters(): Flow<PagingData<CharacterDetail>>
 
-    fun getEpisodes(context: Context): Flow<PagingData<EpisodeDetail>>
+    fun getEpisodes(): Flow<PagingData<EpisodeDetail>>
 
-    fun getLocations(context: Context): Flow<PagingData<LocationDetail>>
+    fun getLocations(): Flow<PagingData<LocationDetail>>
 
-    suspend fun getCharacter(context: Context,characterId: String): Resource<CharacterDetail>
+    suspend fun getCharacter(characterId: String): Resource<CharacterDetail>
 
-    suspend fun getEpisode(context: Context,episodeId: String): Resource<EpisodeDetail>
+    suspend fun getEpisode(episodeId: String): Resource<EpisodeDetail>
 
-    suspend fun getLocation(context: Context,locationId: String): Resource<LocationDetail>
+    suspend fun getLocation(locationId: String): Resource<LocationDetail>
 }

@@ -5,9 +5,9 @@ import com.gowtham.ricknmorty.data.MainRepository
 import javax.inject.Inject
 
 class LocationUseCase @Inject constructor(val repository: MainRepository) {
-    fun getLocations(context: Context) = repository.getLocations(context)
+    fun getLocations() = repository.getLocations()
     suspend fun getLocation(
         context: Context,
         locationId: String
-    ) = repository.getLocation(context, locationId)
+    ) = repository.getLocation( locationId)
 }

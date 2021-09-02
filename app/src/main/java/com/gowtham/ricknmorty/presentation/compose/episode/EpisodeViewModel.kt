@@ -28,7 +28,7 @@ class EpisodeViewModel @Inject constructor(
             return
         _episodeDetail.value = Resource.Loading()
         viewModelScope.launch {
-            _episodeDetail.value = episodeUseCase.getEpisode(context,episodeId)
+            _episodeDetail.value = episodeUseCase.getEpisode(episodeId)
         }
     }
 }

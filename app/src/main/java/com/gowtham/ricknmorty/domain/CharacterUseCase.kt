@@ -5,9 +5,8 @@ import com.gowtham.ricknmorty.data.MainRepository
 import javax.inject.Inject
 
 class CharacterUseCase @Inject constructor(val repository: MainRepository) {
-    fun getCharacters(context: Context) = repository.getCharacters(context)
+    fun getCharacters() = repository.getCharacters()
     suspend fun getCharacter(
-        context: Context,
         characterId: String
-    ) = repository.getCharacter(context, characterId)
+    ) = repository.getCharacter(characterId)
 }

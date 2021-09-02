@@ -37,9 +37,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    val characters = characterUserCase.getCharacters(context).cachedIn(viewModelScope)
+    val characters = characterUserCase.getCharacters().cachedIn(viewModelScope)
 
-    val episodes = episodeUseCase.getEpisodes(context).cachedIn(viewModelScope)
+    val episodes = episodeUseCase.getEpisodes().cachedIn(viewModelScope)
 
-    val locations = locationUseCase.getLocations(context).cachedIn(viewModelScope)
+    val locations = locationUseCase.getLocations().cachedIn(viewModelScope)
 }

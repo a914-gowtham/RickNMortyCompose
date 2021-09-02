@@ -27,8 +27,6 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
-    private lateinit var splashScreen: SplashScreen
-
     companion object {
         const val CHARACTER_ID = "character_id"
         const val EPISODE_ID = "episode_id"
@@ -40,18 +38,15 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        splashScreen = installSplashScreen()
         setContent {
-            AppContent {
-                splashScreen.setKeepVisibleCondition(it)
-            }
+            AppContent()
         }
     }
 
     @Composable
-    fun AppContent(splashScreenVisibleCondition: (SplashScreen.KeepOnScreenCondition) -> Unit) {
+    fun AppContent() {
         TAppTheme {
-            RickNMortyApp(splashScreenVisibleCondition, viewModel)
+            RickNMortyApp(viewModel)
         }
     }
 }
@@ -59,12 +54,8 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun RickNMortyApp(
-    splashScreenVisibleCondition: (SplashScreen.KeepOnScreenCondition) -> Unit,
     viewModel: MainViewModel
 ) {
-    splashScreenVisibleCondition {
-        viewModel.splash.value
-    }
     val navController = rememberNavController()
     val bottomNavigationItems =
         listOf(Screens.CharactersScreen, Screens.EpisodesScreen, Screens.LocationsScreen)

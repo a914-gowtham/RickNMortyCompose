@@ -1,6 +1,7 @@
 package com.gowtham.ricknmorty.presentation.compose.character
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gowtham.ricknmorty.data.MainRepository
@@ -16,8 +17,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterViewModel @Inject constructor(
-    @ApplicationContext
-    private val context: Context,
     private val characterUseCase: CharacterUseCase
 ) : ViewModel() {
 
@@ -30,7 +29,7 @@ class CharacterViewModel @Inject constructor(
             return
         _characterDetail.value = Resource.Loading()
         viewModelScope.launch {
-            _characterDetail.value = characterUseCase.getCharacter(context,characterId)
+            _characterDetail.value = characterUseCase.getCharacter(characterId)
         }
     }
 }
