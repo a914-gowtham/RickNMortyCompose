@@ -14,7 +14,7 @@ based on https://github.com/Dimillian/MortyUI SwiftUI project and https://github
 * Apollo graphql
 * Accompanist
 * Paging compose
-* Di with Hilt/Koin
+* DI with Hilt/Koin
 
 
 ## 📱 Install
