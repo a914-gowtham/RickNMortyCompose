@@ -9,7 +9,7 @@ Update: implemented clean architecture in the clean_arch branch
 An android app to demo. Graphql + Jetpack compose + Hilt / Koin(koin branch). 
 based on https://github.com/Dimillian/MortyUI SwiftUI project and https://github.com/joreilly/MortyComposeKMM Kotlin multiplatform mobile project
 
-## 🛠 Buid with
+## 🛠 Built with
 * Jetpack compose
 * Apollo graphql
 * Accompanist
