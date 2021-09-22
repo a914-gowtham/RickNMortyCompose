@@ -9,24 +9,20 @@ Update: implemented clean architecture in the clean_arch branch
 An android app to demo. Graphql + Jetpack compose + Hilt / Koin(koin branch). 
 based on https://github.com/Dimillian/MortyUI SwiftUI project and https://github.com/joreilly/MortyComposeKMM Kotlin multiplatform mobile project
 
+## 🛠 Buid with
+* Jetpack compose
+* Apollo graphql
+* Accompanist
+* Paging compose
+* Di with Hilt/Koin
+
+
 ## 📱 Install
 
 [![RickNMortyCompose App](https://img.shields.io/badge/RickNMortyCompose-APK-blue.svg?style=for-the-badge&logo=android)](https://github.com/a914-gowtham/RickNMortyCompose/releases/tag/v1.0.0)
 
-<table>
-  <tr>
-    <td>List</td>
-    <td>Detail</td>
-  </tr>
-  <tr>
-    <td><img src="arts/light_1.jpg" width="360" height="780" scale="0.5"></td>
-    <td><img src="arts/light_2.jpg" width="360" height="780" scale="0.5"></td>
-  </tr>
-    <tr>
-    <td><img src="arts/dark_1.jpg" width="360" height="780" scale="0.5" ></td>
-    <td><img src="arts/dark_2.jpg" width="360" height="780" scale="0.5"></td>
-  </tr>
- </table>
+![GitHub Cards Preview](https://github.com/a914-gowtham/RickNMortyCompose/blob/main/arts/banner.jpg?raw=true)
+
 
 ## License
 ```
